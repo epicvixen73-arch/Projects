@@ -5,7 +5,7 @@ Il permet de calculer rapidement des fonctions, des théorèmes, des grandeurs p
 
 ---
 
-## 🚀 Fonctionnalités
+## Fonctionnalités
 
 ### Mathématiques
 - **Fonctions de base** : carré, cube, inverse, racine carrée, valeur absolue, factorielle, exponentielle.
@@ -31,14 +31,14 @@ Il permet de calculer rapidement des fonctions, des théorèmes, des grandeurs p
 
 ---
 
-## 📋 Prérequis
+## Prérequis
 
 - Python 3.x (testé avec Python 3.7+)
 - Aucune bibliothèque externe requise (seulement la bibliothèque standard).
 
 ---
 
-## ▶️ Utilisation
+## Utilisation
 
 1. Clonez le dépôt ou téléchargez le fichier `FinalV2.py`.
 2. Exécutez le script :
@@ -53,7 +53,7 @@ Il permet de calculer rapidement des fonctions, des théorèmes, des grandeurs p
 
 ---
 
-## 🧱 Structure du code
+## Structure du code
 
 | Fichier / Élément            | Description                                                                 |
 |------------------------------|-----------------------------------------------------------------------------|
@@ -68,7 +68,7 @@ Les constantes physiques (G, NA, c, masses, etc.) sont définies en début de fi
 
 ---
 
-## 📝 Exemple d’exécution
+## Exemple d’exécution
 
 ```
 1: Maths, 2: Physique, 3: Formules
@@ -93,7 +93,7 @@ L'image de 5.0 est 25.0 par la fonction carrée.
 
 ---
 
-## 🛠️ Personnalisation
+## Personnalisation
 
 Vous pouvez facilement ajouter de nouvelles formules :
 - Définissez la formule dans la liste `formules` (avec son index).
@@ -102,13 +102,13 @@ Vous pouvez facilement ajouter de nouvelles formules :
 
 ---
 
-## 📄 Licence
+## Licence
 
 Ce projet est sous licence MIT. Vous êtes libre de l’utiliser, de le modifier et de le redistribuer.
 
 ---
 
-## 👤 Auteur
+## Auteur
 
 Projet réalisé par **epicvixen73-arch** – n’hésitez pas à contribuer ou à signaler des bugs !
 
