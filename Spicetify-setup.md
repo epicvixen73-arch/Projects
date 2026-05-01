@@ -1,6 +1,6 @@
 # Installation de Spotify avec Spicetify
 
-> 🚀 **Tu veux aller vite ?** Des scripts d'installation automatique sont disponibles :
+> **Tu veux aller vite ?** Des scripts d'installation automatique sont disponibles :
 >
 > | Plateforme | Script | Utilisation |
 > |---|---|---|
@@ -13,7 +13,7 @@
 
 ## 🪟 Installation manuelle — Windows
 
-### ⚠️ Important
+### Important
 Ne **PAS** utiliser la version Microsoft Store de Spotify — elle n'est pas compatible avec Spicetify.
 
 ---
@@ -50,7 +50,7 @@ https://github.com/SpotifyImporter/spotify-cdn/releases/tag/1.2.52.442
 
 Lance l'installeur `SpotifyFullSetup.exe` normalement.
 
-⚠️ **Ne pas ouvrir Spotify** après l'installation — passe directement à l'étape 4.
+**Ne pas ouvrir Spotify** après l'installation — passe directement à l'étape 4.
 
 ---
 
@@ -100,13 +100,13 @@ Dans la même PowerShell (sans admin), colle :
 spicetify backup apply
 ```
 
-Spotify va se lancer automatiquement avec Spicetify actif. ✅
+Spotify va se lancer automatiquement avec Spicetify actif.
 
 ---
 
 ## 🐧 Installation manuelle — Linux
 
-### ⚠️ Important
+### Important
 - Ne **PAS** utiliser la version **Snap** de Spotify — elle n'est pas compatible avec Spicetify.
 - Ne **PAS** lancer les commandes Spicetify en `sudo` / root.
 
@@ -134,7 +134,7 @@ yay -S spotify   # ou : paru -S spotify
 ```bash
 flatpak install flathub com.spotify.Client
 ```
-> ⚠️ Le support Spicetify est limité avec la version Flatpak.
+> Le support Spicetify est limité avec la version Flatpak.
 
 ---
 
@@ -177,11 +177,11 @@ curl -fsSL https://raw.githubusercontent.com/spicetify/marketplace/main/resource
 spicetify backup apply
 ```
 
-Spotify va se lancer avec Spicetify actif. ✅
+Spotify va se lancer avec Spicetify actif.
 
 ---
 
-## ✅ Vérification finale (toutes plateformes)
+## Vérification finale (toutes plateformes)
 
 - Spotify s'ouvre avec le thème Spicetify
 - Les mises à jour automatiques sont bloquées
@@ -189,7 +189,7 @@ Spotify va se lancer avec Spicetify actif. ✅
 
 ---
 
-## 🔧 Troubleshooting
+## Troubleshooting
 
 ### 🪟 Windows
 
