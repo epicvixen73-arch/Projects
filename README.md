@@ -21,16 +21,24 @@ La même calculatrice, adaptée pour la **NumWorks N0110/N0120** en **MicroPytho
 
 ---
 
-### 🎵 [Installation Spicetify sur Windows](Spicetify-setup.md)
-Guide pas-à-pas pour installer **Spicetify + Marketplace** sur Spotify standalone (Windows).  
-Inclut le blocage des mises à jour automatiques et le troubleshooting.
+### 🎵 [Installation Spicetify sur Windows & Linux](Spicetify-setup.md)
+Guide pas-à-pas pour installer **Spicetify + Marketplace** sur Spotify standalone.  
+Inclut le blocage des mises à jour automatiques et le troubleshooting.  
+Disponible sur **Windows** et **Linux** (Ubuntu, Arch, Fedora).
+
+**Scripts d'installation automatique :**
+
+| Plateforme | Script | Utilisation |
+|---|---|---|
+| 🪟 Windows | [`install-spicetify.ps1`](install-spicetify.ps1) | PowerShell (sans admin) |
+| 🐧 Linux | [`install-spicetify.sh`](install-spicetify.sh) | `bash install-spicetify.sh` |
 
 ---
 
 ## 🛠️ Technologies utilisées
 
 - Python 3 / MicroPython
-- PowerShell / Batch (Windows scripting)
+- PowerShell / Bash (Windows & Linux scripting)
 
 ---
 
