@@ -1,18 +1,18 @@
-# 🧮 Calculatrice Scientifique — NumWorks
+# Calculatrice Scientifique — NumWorks
 
 > Application de calcul scientifique développée en **MicroPython** pour la calculatrice graphique **NumWorks N0110/N0120**, couvrant les formules de **Maths** et de **Physique-Chimie** niveau **Seconde**.
 
 ---
 
-## 📋 Description
+## Description
 
 Ce projet est une calculatrice scientifique interactive qui permet d'effectuer rapidement des calculs courants, organisés en menus hiérarchiques. L'application enregistre un **historique des calculs** effectués pendant la session et propose également un mode **Formules** pour consulter et appliquer directement n'importe quelle formule du programme.
 
 ---
 
-## ✨ Fonctionnalités
+## Fonctionnalités
 
-### 📐 Mathématiques
+### Mathématiques
 | Catégorie | Formules disponibles |
 |-----------|---------------------|
 | **Fonctions** | Carrée, Cube, Inverse, Racine carrée, Valeur absolue, Factorielle, Exponentielle |
@@ -22,7 +22,7 @@ Ce projet est une calculatrice scientifique interactive qui permet d'effectuer r
 | **Triangles** | Somme angulaire, Trigonométrie (cos, sin, tan, arccos, arcsin, arctan) |
 | **Taux** | Taux d'évolution, Taux global (taux composés) |
 
-### ⚗️ Physique-Chimie
+### Physique-Chimie
 | Catégorie | Formules disponibles |
 |-----------|---------------------|
 | **Matière** | Masse volumique, Masse d'un atome, Quantité de matière (mol), Dilution |
@@ -31,17 +31,17 @@ Ce projet est une calculatrice scientifique interactive qui permet d'effectuer r
 | **Vitesse moyenne** | Calcul de v, d ou t |
 | **Forces** | Force de gravitation universelle, Poids |
 
-### 📖 Mode Formules
+### Mode Formules
 - Affichage de toutes les **35 formules** du programme
 - Sélection directe d'une formule par son numéro pour effectuer le calcul
 
-### 🕓 Historique
+### Historique
 - Enregistrement automatique de chaque calcul effectué
 - Affichage complet de l'historique en fin de session
 
 ---
 
-## 🚀 Installation & Utilisation
+## Installation & Utilisation
 
 ### Prérequis
 - Calculatrice **NumWorks N0110 ou N0120**
@@ -63,7 +63,7 @@ Ou directement depuis l'onglet Scripts en exécutant le fichier.
 
 ---
 
-## 🗂️ Structure du code
+## Structure du code
 
 ```
 calculatrice.py
@@ -80,7 +80,7 @@ calculatrice.py
 
 ---
 
-## 📌 Constantes intégrées
+## Constantes intégrées
 
 | Constante | Valeur | Description |
 |-----------|--------|-------------|
@@ -94,7 +94,7 @@ calculatrice.py
 
 ---
 
-## 💡 Exemple d'utilisation
+## Exemple d'utilisation
 
 ```
 1: Maths, 2: Physique, 3: Formules
@@ -120,7 +120,7 @@ c = 5.0
 
 ---
 
-## 🛠️ Technologies
+## Technologies
 
 - **Langage** : Python 3 / MicroPython
 - **Plateforme** : NumWorks N0110 / N0120
@@ -128,12 +128,12 @@ c = 5.0
 
 ---
 
-## 👤 Auteur
+## Auteur
 
 Projet développé par **epicvixen73-arch**
 
 ---
 
-## 📄 Licence
+## Licence
 
 Ce projet est libre d'utilisation à des fins éducatives.
