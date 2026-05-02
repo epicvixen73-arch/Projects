@@ -34,14 +34,9 @@ Puis supprimer les dossiers résiduels :
 
 ### Étape 2 : Télécharger Spotify standalone
 
-Télécharge l'installeur officiel depuis :
+Télécharge l'installeur depuis :
 ```
 https://download.scdn.co/SpotifyFullSetup.exe
-```
-
-**OU** depuis la version recommandée :
-```
-https://github.com/SpotifyImporter/spotify-cdn/releases/tag/1.2.52.442
 ```
 
 ---
