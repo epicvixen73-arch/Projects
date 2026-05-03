@@ -67,7 +67,12 @@ New-Item -Path $updatePath -ItemType File -Force | Out-Null
 Write-Host "✓ Mises à jour bloquées !"
 ```
 
-**Résultat attendu :** `✓ Mises à jour bloquées !`
+**Résultat attendu :** `✓ Mises à jour bloquées 
+
+>Note:
+>
+>Avant d'installer Spicetify, ouvrir au minimum une fois Spotify.
+>Ca le rendra détectable pour Spicetify.
 
 ---
 
@@ -79,11 +84,16 @@ Colle :
 ```powershell
 iwr -useb https://raw.githubusercontent.com/spicetify/cli/main/install.ps1 | iex
 ```
-
-Puis installe le Marketplace :
-```powershell
-iwr -useb https://raw.githubusercontent.com/spicetify/marketplace/main/resources/install.ps1 | iex
-```
+>Note:
+>
+>En installant Spicetify, à la fin il y a la possibilité de l'installer directement;
+>
+>- Si tu choisis oui il s'intallera automatiquement
+>- Si tu choisis non il te faudra cette commande: 
+>    (Optionnel) installe le Marketplace :
+>    ```powershell
+>    iwr -useb https://raw.githubusercontent.com/spicetify/marketplace/main/resources/install.ps1 | iex
+>    ```
 
 ---
 
@@ -141,6 +151,10 @@ rm -rf ~/.config/spotify/Update
 touch ~/.config/spotify/Update
 echo "✓ Mises à jour bloquées !"
 ```
+>Note:
+>
+>Avant d'installer Spicetify, ouvrir au minimum une fois Spotify.
+>Ca le rendra détectable pour Spicetify.
 
 ---
 
