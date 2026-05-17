@@ -1,117 +1,123 @@
-# Calculateur Mathématiques & Physique
+# Math & Physics Calculator
 
-Ce projet est un calculateur interactif en Python proposant de nombreuses formules mathématiques et physiques.  
-Il permet de calculer rapidement des fonctions, des théorèmes, des grandeurs physiques et bien plus encore, le tout avec un historique des calculs effectués.
-
----
-
-## Fonctionnalités
-
-### Mathématiques
-- **Fonctions de base** : carré, cube, inverse, racine carrée, valeur absolue, factorielle, exponentielle.
-- **Coordonnées** : calcul du milieu et de la distance entre deux points.
-- **Théorèmes** : Pythagore (direct et réciproque), Thalès.
-- **Vecteurs** : relation de Chasles, déterminant.
-- **Triangles** : somme angulaire, trigonométrie (cos, sin, tan) et leurs réciproques (arccos, arcsin, arctan).
-- **Taux** : taux d’évolution, taux global.
-
-### Physique
-- **Matière** : masse volumique, masse d’un atome, nombre de moles, dilution.
-- **Électricité** : loi d’Ohm, puissance électrique, énergie électrique.
-- **Optique** : loi de Snell-Descartes, indice de réfraction.
-- **Cinématique** : vitesse, distance, temps.
-- **Forces** : force de gravitation, poids.
-
-### Formules
-- Liste complète de toutes les formules disponibles avec possibilité d’exécution directe.
-
-### Autres
-- **Historique** : toutes les opérations sont enregistrées et affichées en fin de session.
-- **Validation des entrées** : gestion des erreurs de saisie (valeurs non numériques, choix hors limites).
+This project is an interactive Python calculator offering a wide range of mathematical and physics formulas.
+It lets you quickly compute functions, theorems, physical quantities, and much more — with a full history of every calculation performed.
 
 ---
 
-## Prérequis
+## 🚀 Features
 
-- Python 3.x (testé avec Python 3.7+)
-- Aucune bibliothèque externe requise (seulement la bibliothèque standard).
+### Mathematics
+
+* **Basic functions**: square, cube, inverse, square root, absolute value, factorial, exponential.
+* **Coordinates**: midpoint and distance between two points.
+* **Theorems**: Pythagorean theorem (direct and converse), Thales' theorem.
+* **Vectors**: Chasles' relation, determinant.
+* **Triangles**: angle sum, trigonometry (cos, sin, tan) and their inverses (arccos, arcsin, arctan).
+* **Rates**: rate of change, compound rate.
+
+### Physics
+
+* **Matter**: density, atomic mass, number of moles, dilution.
+* **Electricity**: Ohm's law, electric power, electric energy.
+* **Optics**: Snell-Descartes law, refractive index.
+* **Kinematics**: speed, distance, time.
+* **Forces**: gravitational force, weight.
+
+### Formulas
+
+* A complete list of all available formulas with the option to run them directly.
+
+### Other
+
+* **History**: every operation is recorded and displayed at the end of the session.
+* **Input validation**: handles invalid inputs (non-numeric values, out-of-range choices).
 
 ---
 
-## Utilisation
+## 📋 Requirements
 
-1. Clonez le dépôt ou téléchargez le fichier `FinalV2.py`.
-2. Exécutez le script :
-   ```bash
+* Python 3.x (tested with Python 3.7+)
+* No external libraries required (standard library only).
+
+---
+
+## ▶️ Usage
+
+1. Clone the repository or download the `FinalV2.py` file.
+2. Run the script:
+
+   ```
    python FinalV2.py
    ```
-3. Suivez les menus :
-   - Choisissez entre **Maths**, **Physique** ou **Formules**.
-   - Naviguez dans les sous‑catégories pour sélectionner le calcul souhaité.
-   - Saisissez les valeurs demandées.
-4. À la fin de chaque session, vous pouvez consulter l’historique ou continuer.
+3. Follow the menus:
+   * Choose between **Maths**, **Physics**, or **Formulas**.
+   * Navigate through sub-categories to select the desired calculation.
+   * Enter the requested values.
+4. At the end of each session, you can view the history or continue.
 
 ---
 
-## Structure du code
+## 🧱 Code Structure
 
-| Fichier / Élément            | Description                                                                 |
-|------------------------------|-----------------------------------------------------------------------------|
-| `FinalV2.py`                 | Script principal contenant toute l’application.                             |
-| `arrondi(valeur)`            | Arrondit un nombre à 4 décimales.                                           |
-| `saisir(message, valeurs)`   | Gère les saisies utilisateur avec validation.                               |
-| `executer_formule(choix)`    | Exécute une formule à partir de son index dans la liste `formules`.         |
-| `run()`                      | Affiche le menu principal et dirige vers les sous‑menus.                    |
-| `historique` (liste)         | Stocke chaque calcul effectué pour les afficher à la fin.                   |
+| File / Element | Description |
+| --- | --- |
+| `FinalV2.py` | Main script containing the entire application. |
+| `arrondi(valeur)` | Rounds a number to 4 decimal places. |
+| `saisir(message, valeurs)` | Handles user input with validation. |
+| `executer_formule(choix)` | Runs a formula by its index in the `formules` list. |
+| `run()` | Displays the main menu and routes to sub-menus. |
+| `historique` (list) | Stores each calculation performed, displayed at the end. |
 
-Les constantes physiques (G, NA, c, masses, etc.) sont définies en début de fichier.
+Physical constants (G, NA, c, masses, etc.) are defined at the top of the file.
 
 ---
 
-## Exemple d’exécution
+## 📝 Example Run
 
 ```
-1: Maths, 2: Physique, 3: Formules
-Choix: 1
+1: Maths, 2: Physics, 3: Formulas
+Choice: 1
 
-1: Fonctions, 2: Coordonnées
-3: Théorèmes, 4: Vecteurs
-5: Triangles, 6: Taux
-Choix: 1
+1: Functions, 2: Coordinates
+3: Theorems, 4: Vectors
+5: Triangles, 6: Rates
+Choice: 1
 
-1: De bases, 2: Spécialées
-Choix: 1
+1: Basic, 2: Special
+Choice: 1
 
-1: Carrée, 2: Cube
-3: Inverse, 4: Racine carrée
-5: Valeur absolue
-Choix: 1
+1: Square, 2: Cube
+3: Inverse, 4: Square root
+5: Absolute value
+Choice: 1
 
 x: 5
-L'image de 5.0 est 25.0 par la fonction carrée.
+The image of 5.0 is 25.0 by the square function.
 ```
 
 ---
 
-## Personnalisation
+## 🛠️ Customization
 
-Vous pouvez facilement ajouter de nouvelles formules :
-- Définissez la formule dans la liste `formules` (avec son index).
-- Ajoutez une branche `elif` dans `executer_formule` avec le code de calcul correspondant.
-- Si la formule doit apparaître dans les menus classiques, ajoutez‑la également dans les structures de données (ex: `maths_H1`, `math_fn`, etc.).
+You can easily add new formulas:
 
----
-
-## Licence
-
-Ce projet est sous licence MIT. Vous êtes libre de l’utiliser, de le modifier et de le redistribuer.
+* Define the formula in the `formules` list (with its index).
+* Add an `elif` branch in `executer_formule` with the corresponding calculation code.
+* If the formula should also appear in the classic menus, add it to the relevant data structures (e.g. `maths_H1`, `math_fn`, etc.).
 
 ---
 
-## Auteur
+## 📄 License
 
-Projet réalisé par **epicvixen73-arch** – n’hésitez pas à contribuer ou à signaler des bugs !
+This project is licensed under the MIT License. You are free to use, modify, and redistribute it.
 
 ---
 
-*Bon calcul !*
+## 👤 Author
+
+Project by **epicvixen73-arch** — feel free to contribute or report bugs!
+
+---
+
+*Happy calculating!*
