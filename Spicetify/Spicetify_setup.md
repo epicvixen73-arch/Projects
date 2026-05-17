@@ -97,7 +97,7 @@ Spotify will launch automatically with Spicetify active. ✅
 
 ---
 
-## ✅ Final Verification
+## Final Verification
 
 * Spotify opens with the Spicetify theme applied
 * Automatic updates are blocked
@@ -105,7 +105,7 @@ Spotify will launch automatically with Spicetify active. ✅
 
 ---
 
-## 🔧 Troubleshooting
+## Troubleshooting
 
 ### Error: "Could not find part of the path"
 
