@@ -1,118 +1,127 @@
-# Calculatrice Scientifique — NumWorks
+# 🧮 Scientific Calculator — NumWorks
 
-> Application de calcul scientifique développée en **MicroPython** pour la calculatrice graphique **NumWorks N0110/N0120**, couvrant les formules de **Maths** et de **Physique-Chimie** niveau **Seconde**.
-
----
-
-## Description
-
-Ce projet est une calculatrice scientifique interactive qui permet d'effectuer rapidement des calculs courants, organisés en menus hiérarchiques. L'application enregistre un **historique des calculs** effectués pendant la session et propose également un mode **Formules** pour consulter et appliquer directement n'importe quelle formule du programme.
+> A scientific calculator application developed in **MicroPython** for the **NumWorks N0110/N0120** graphing calculator, covering **Math** and **Physics & Chemistry** formulas at the **Seconde** (10th grade) level.
 
 ---
 
-## Fonctionnalités
+## 📋 Description
 
-### Mathématiques
-| Catégorie | Formules disponibles |
-|-----------|---------------------|
-| **Fonctions** | Carrée, Cube, Inverse, Racine carrée, Valeur absolue, Factorielle, Exponentielle |
-| **Coordonnées** | Milieu, Distance entre deux points |
-| **Théorèmes** | Pythagore (théorème + réciproque/contraposée), Thalès |
-| **Vecteurs** | Relation de Chasles, Déterminant |
-| **Triangles** | Somme angulaire, Trigonométrie (cos, sin, tan, arccos, arcsin, arctan) |
-| **Taux** | Taux d'évolution, Taux global (taux composés) |
-
-### Physique-Chimie
-| Catégorie | Formules disponibles |
-|-----------|---------------------|
-| **Matière** | Masse volumique, Masse d'un atome, Quantité de matière (mol), Dilution |
-| **Électricité** | Loi d'Ohm, Puissance électrique, Énergie électrique |
-| **Optique** | Loi de Snell-Descartes, Indice de réfraction |
-| **Vitesse moyenne** | Calcul de v, d ou t |
-| **Forces** | Force de gravitation universelle, Poids |
-
-### Mode Formules
-- Affichage de toutes les **35 formules** du programme
-- Sélection directe d'une formule par son numéro pour effectuer le calcul
-
-### Historique
-- Enregistrement automatique de chaque calcul effectué
-- Affichage complet de l'historique en fin de session
+This project is an interactive scientific calculator that lets you quickly perform common calculations, organized through hierarchical menus. The app keeps a **history of calculations** made during the session and also offers a **Formulas** mode to browse and directly apply any formula from the curriculum.
 
 ---
 
-## Installation & Utilisation
+## ✨ Features
 
-### Prérequis
-- Calculatrice **NumWorks N0110 ou N0120**
-- Accès à l'éditeur de scripts NumWorks (via la calculatrice ou [numworks.com/simulator](https://my.numworks.com))
+### 📐 Mathematics
+
+| Category | Available formulas |
+| --- | --- |
+| **Functions** | Square, Cube, Inverse, Square root, Absolute value, Factorial, Exponential |
+| **Coordinates** | Midpoint, Distance between two points |
+| **Theorems** | Pythagorean theorem (theorem + converse/contrapositive), Thales' theorem |
+| **Vectors** | Chasles' relation, Determinant |
+| **Triangles** | Angle sum, Trigonometry (cos, sin, tan, arccos, arcsin, arctan) |
+| **Rates** | Rate of change, Compound rate |
+
+### ⚗️ Physics & Chemistry
+
+| Category | Available formulas |
+| --- | --- |
+| **Matter** | Density, Atomic mass, Amount of substance (mol), Dilution |
+| **Electricity** | Ohm's law, Electric power, Electric energy |
+| **Optics** | Snell-Descartes law, Refractive index |
+| **Average speed** | Calculate v, d, or t |
+| **Forces** | Universal gravitational force, Weight |
+
+### 📖 Formulas Mode
+
+* Browse all **35 formulas** from the curriculum
+* Select a formula directly by number to run the calculation
+
+### 🕓 History
+
+* Automatic recording of every calculation performed
+* Full history displayed at the end of the session
+
+---
+
+## 🚀 Installation & Usage
+
+### Requirements
+
+* **NumWorks N0110 or N0120** calculator
+* Access to the NumWorks script editor (via the calculator or [numworks.com/simulator](https://my.numworks.com))
 
 ### Installation
-1. Connecte ta NumWorks à ton ordinateur via USB ou ouvre le simulateur en ligne
-2. Accède à l'onglet **Scripts** de la calculatrice
-3. Crée un nouveau script et copie-colle le contenu
-4. Sauvegarde le script
 
-### Lancement
-Dans l'interface NumWorks :
+1. Connect your NumWorks to your computer via USB, or open the online simulator
+2. Go to the **Scripts** tab on the calculator
+3. Create a new script and paste the file contents
+4. Save the script
+
+### Running
+
+From the NumWorks interface:
+
 ```
 from calculatrice import *
 run()
 ```
-Ou directement depuis l'onglet Scripts en exécutant le fichier.
+
+Or directly from the Scripts tab by running the file.
 
 ---
 
-## Structure du code
+## 🗂️ Code Structure
 
 ```
 calculatrice.py
-├── Constantes physiques (G, NA, c, mp, mn, me, g)
-├── Menus hiérarchiques (listes d'options)
-├── formules[]          → liste des 35 formules
-├── historique[]        → liste des calculs effectués
-├── arrondi()           → arrondit à 4 décimales
-├── saisir()            → saisie sécurisée avec validation
-├── executer_formule()  → calcul par index (mode Formules)
-├── run()               → menu principal et navigation
-└── Boucle principale   → gestion de session et affichage historique
+├── Physical constants (G, NA, c, mp, mn, me, g)
+├── Hierarchical menus (option lists)
+├── formulas[]          → list of 35 formulas
+├── history[]           → list of calculations performed
+├── round()             → rounds to 4 decimal places
+├── input_safe()        → validated input with error handling
+├── run_formula()       → calculation by index (Formulas mode)
+├── run()               → main menu and navigation
+└── Main loop           → session management and history display
 ```
 
 ---
 
-## Constantes intégrées
+## 📌 Built-in Constants
 
-| Constante | Valeur | Description |
-|-----------|--------|-------------|
-| `G` | `6.674e-11` | Constante gravitationnelle (N·m²/kg²) |
-| `NA` | `6.02e23` | Nombre d'Avogadro (mol⁻¹) |
-| `c` | `3e8` | Vitesse de la lumière (m/s) |
-| `g` | `9.81` | Accélération gravitationnelle (m/s²) |
-| `MP` | `1.673e-27` | Masse d'un proton (kg) |
-| `MN` | `1.675e-27` | Masse d'un neutron (kg) |
-| `ME` | `9.110e-31` | Masse d'un électron (kg) |
+| Constant | Value | Description |
+| --- | --- | --- |
+| `G` | `6.674e-11` | Gravitational constant (N·m²/kg²) |
+| `NA` | `6.02e23` | Avogadro's number (mol⁻¹) |
+| `c` | `3e8` | Speed of light (m/s) |
+| `g` | `9.81` | Gravitational acceleration (m/s²) |
+| `MP` | `1.673e-27` | Proton mass (kg) |
+| `MN` | `1.675e-27` | Neutron mass (kg) |
+| `ME` | `9.110e-31` | Electron mass (kg) |
 
 ---
 
-## Exemple d'utilisation
+## 💡 Example Usage
 
 ```
-1: Maths, 2: Physique, 3: Formules
-Choix: 1
+1: Maths, 2: Physics, 3: Formulas
+Choice: 1
 
-1: Fonctions, 2: Coordonnées
-3: Théorèmes, 4: Vecteurs
-5: Triangles, 6: Taux
-Choix: 3
+1: Functions, 2: Coordinates
+3: Theorems, 4: Vectors
+5: Triangles, 6: Rates
+Choice: 3
 
-1: Pythagore, 2: Thalès
-Choix: 1
+1: Pythagorean, 2: Thales
+Choice: 1
 
-1: Théorème
-2: Réciproque/Contraposée
-Choix: 1
+1: Theorem
+2: Converse/Contrapositive
+Choice: 1
 
-Le Théorème est: a²+b²=c² (c est l'hypoténuse inconnu)
+The theorem is: a²+b²=c² (c is the unknown hypotenuse)
 a: 3
 b: 4
 c = 5.0
@@ -120,20 +129,20 @@ c = 5.0
 
 ---
 
-## Technologies
+## 🛠️ Technologies
 
-- **Langage** : Python 3 / MicroPython
-- **Plateforme** : NumWorks N0110 / N0120
-- **Modules** : `math`, `time`
-
----
-
-## Auteur
-
-Projet développé par **epicvixen73-arch**
+* **Language**: Python 3 / MicroPython
+* **Platform**: NumWorks N0110 / N0120
+* **Modules**: `math`, `time`
 
 ---
 
-## Licence
+## 👤 Author
 
-Ce projet est libre d'utilisation à des fins éducatives.
+Project developed by **epicvixen73-arch**
+
+---
+
+## 📄 License
+
+This project is free to use for educational purposes.
