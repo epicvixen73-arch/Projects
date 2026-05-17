@@ -1,219 +1,124 @@
-# Installation de Spotify avec Spicetify
+# Installing Spotify with Spicetify — Key Steps Summary
 
-> **Tu veux aller vite ?** Des scripts d'installation automatique sont disponibles :
->
-> | Plateforme | Script | Utilisation |
-> |---|---|---|
-> | 🪟 Windows | [`install-spicetify.ps1`](install-spicetify.ps1) | PowerShell sans admin |
-> | 🐧 Linux | [`install-spicetify.sh`](install-spicetify.sh) | `bash install-spicetify.sh` |
->
-> Les guides manuels ci-dessous restent utiles pour comprendre chaque étape ou dépanner.
+## ⚠️ Important
+
+Do **NOT** use the Microsoft Store version of Spotify — it is not compatible with Spicetify.
 
 ---
 
-## 🪟 Installation manuelle — Windows
+## Step 1: Completely uninstall Spotify
 
-### Important
-Ne **PAS** utiliser la version Microsoft Store de Spotify — elle n'est pas compatible avec Spicetify.
-
----
-
-### Étape 1 : Désinstaller Spotify complètement
-
-```powershell
+```
 winget uninstall Spotify.Spotify
 ```
 
-Puis supprimer les dossiers résiduels :
-- `%APPDATA%\Spotify`
-- `%LOCALAPPDATA%\Spotify`
+Then delete the leftover folders:
 
-*(Appuie sur `Win + R`, colle le chemin, `Entrée`)*
+* `%APPDATA%\Spotify`
+* `%LOCALAPPDATA%\Spotify`
+
+*(Press `Win + R`, paste the path, hit `Enter`)*
 
 ---
 
-### Étape 2 : Télécharger Spotify standalone
+## Step 2: Download the standalone Spotify installer
 
-Télécharge l'installeur depuis :
+Download the official installer from:
+
 ```
 https://download.scdn.co/SpotifyFullSetup.exe
 ```
 
----
+**OR** from the recommended pinned version:
 
-### Étape 3 : Installer Spotify
-
-Lance l'installeur `SpotifyFullSetup.exe` normalement.
-
-**Ne pas ouvrir Spotify** après l'installation — passe directement à l'étape 4.
+```
+https://github.com/SpotifyImporter/spotify-cdn/releases/tag/1.2.52.442
+```
 
 ---
 
-### Étape 4 : Bloquer les mises à jour automatiques
+## Step 3: Install Spotify
 
-Lance **PowerShell en mode administrateur** et colle :
+Run the `SpotifyFullSetup.exe` installer normally.
+
+⚠️ **Do not open Spotify** after installation — go straight to Step 4.
+
+---
+
+## Step 4: Block automatic updates
+
+Open **PowerShell as Administrator** and paste:
 
 ```powershell
-# S'assure que le dossier parent existe
+# Make sure the parent folder exists
 $spotifyPath = "$env:LOCALAPPDATA\Spotify"
 if (-not (Test-Path $spotifyPath)) {
     New-Item -Path $spotifyPath -ItemType Directory -Force | Out-Null
 }
 
-# Crée un fichier "Update" à la place du dossier Update
+# Create a file named "Update" instead of an Update folder
 $updatePath = "$spotifyPath\Update"
 New-Item -Path $updatePath -ItemType File -Force | Out-Null
 
-Write-Host "✓ Mises à jour bloquées !"
+Write-Host "✓ Updates blocked!"
 ```
 
-**Résultat attendu :** `✓ Mises à jour bloquées 
-
->Note:
->
->Avant d'installer Spicetify, ouvrir au minimum une fois Spotify.
->Ca le rendra détectable pour Spicetify.
+**Expected output:** `✓ Updates blocked!`
 
 ---
 
-### Étape 5 : Installer Spicetify
+## Step 5: Install Spicetify
 
-Ferme PowerShell admin et ouvre une **nouvelle PowerShell SANS admin**.
+Close the admin PowerShell and open a **new PowerShell WITHOUT admin rights**.
 
-Colle :
-```powershell
+Paste:
+
+```
 iwr -useb https://raw.githubusercontent.com/spicetify/cli/main/install.ps1 | iex
 ```
->Note:
->
->En installant Spicetify, à la fin il y a la possibilité de l'installer directement;
->
->- Si tu choisis oui il s'intallera automatiquement
->- Si tu choisis non il te faudra cette commande: 
->    (Optionnel) installe le Marketplace :
->    ```powershell
->    iwr -useb https://raw.githubusercontent.com/spicetify/marketplace/main/resources/install.ps1 | iex
->    ```
+
+Then install the Marketplace:
+
+```
+iwr -useb https://raw.githubusercontent.com/spicetify/marketplace/main/resources/install.ps1 | iex
+```
 
 ---
 
-### Étape 6 : Appliquer Spicetify
+## Step 6: Apply Spicetify
 
-Dans la même PowerShell (sans admin), colle :
+In the same PowerShell (without admin), paste:
 
-```powershell
+```
 spicetify backup apply
 ```
 
-Spotify va se lancer automatiquement avec Spicetify actif.
+Spotify will launch automatically with Spicetify active. ✅
 
 ---
 
-## 🐧 Installation manuelle — Linux
+## ✅ Final Verification
 
-### Important
-- Ne **PAS** utiliser la version **Snap** de Spotify — elle n'est pas compatible avec Spicetify.
-- Ne **PAS** lancer les commandes Spicetify en `sudo` / root.
-
----
-
-### Étape 1 : Installer Spotify standalone
-
-**Ubuntu / Debian :**
-```bash
-curl -sS https://download.spotify.com/debian/pubkey_6224F9941A8AA6D1.gpg \
-    | sudo gpg --dearmor --yes -o /etc/apt/trusted.gpg.d/spotify.gpg
-
-echo "deb http://repository.spotify.com stable non-free" \
-    | sudo tee /etc/apt/sources.list.d/spotify.list
-
-sudo apt-get update && sudo apt-get install -y spotify-client
-```
-
-**Arch Linux (AUR) :**
-```bash
-yay -S spotify   # ou : paru -S spotify
-```
-
-**Fedora (Flatpak) :**
-```bash
-flatpak install flathub com.spotify.Client
-```
-> Le support Spicetify est limité avec la version Flatpak.
+* Spotify opens with the Spicetify theme applied
+* Automatic updates are blocked
+* You can install themes and extensions via the Marketplace
 
 ---
 
-### Étape 2 : Bloquer les mises à jour automatiques
+## 🔧 Troubleshooting
 
-```bash
-mkdir -p ~/.config/spotify
-rm -rf ~/.config/spotify/Update
-touch ~/.config/spotify/Update
-echo "✓ Mises à jour bloquées !"
-```
->Note:
->
->Avant d'installer Spicetify, ouvrir au minimum une fois Spotify.
->Ca le rendra détectable pour Spicetify.
+### Error: "Could not find part of the path"
 
----
+→ PowerShell doesn't have enough rights. Relaunch in **Administrator mode** for Step 4.
 
-### Étape 3 : Installer Spicetify CLI
+### Error: "Spicetify should NOT be run with administrator privileges"
 
-```bash
-curl -fsSL https://raw.githubusercontent.com/spicetify/cli/main/install.sh | sh
-```
+→ You're in admin mode. Close and open a **regular PowerShell** for Step 6.
 
-Ajouter Spicetify au PATH (si besoin) :
-```bash
-echo 'export PATH="$PATH:$HOME/.spicetify"' >> ~/.bashrc
-source ~/.bashrc
-```
+### Spotify updates itself automatically
 
----
+→ Step 4 (blocking updates) didn't work. Retry the commands above as Administrator.
 
-### Étape 4 : Installer le Marketplace
+### Spotify shows a black window
 
-```bash
-curl -fsSL https://raw.githubusercontent.com/spicetify/marketplace/main/resources/install.sh | sh
-```
-
----
-
-### Étape 5 : Appliquer Spicetify
-
-```bash
-spicetify backup apply
-```
-
-Spotify va se lancer avec Spicetify actif.
-
----
-
-## Vérification finale (toutes plateformes)
-
-- Spotify s'ouvre avec le thème Spicetify
-- Les mises à jour automatiques sont bloquées
-- Tu peux installer des thèmes/extensions via le **Marketplace**
-
----
-
-## Troubleshooting
-
-### 🪟 Windows
-
-| Erreur | Cause | Solution |
-|---|---|---|
-| "Impossible de trouver une partie du chemin d'accès" | Droits insuffisants | Relance en **mode administrateur** pour l'étape 4 |
-| "Spicetify should NOT be run with administrator privileges" | Lancé en admin | Ferme et ouvre une **PowerShell normale** pour les étapes 5-6 |
-| Spotify se met à jour tout seul | Étape 4 non appliquée | Réessaie le blocage des mises à jour en admin |
-| Spotify affiche une fenêtre noire | Chargement en cours | Attends quelques secondes |
-
-### 🐧 Linux
-
-| Erreur | Cause | Solution |
-|---|---|---|
-| `spicetify: command not found` | PATH non configuré | Ajoute `$HOME/.spicetify` au PATH et recharge ton shell |
-| "cannot find Spotify" | Chemin Spotify non détecté | Lance `spicetify config spotify_path /usr/bin/spotify` |
-| Spotify version Snap incompatible | Snap non supporté | Désinstalle via `sudo snap remove spotify`, réinstalle via `.deb` |
-| Spicetify se réinitialise après update | Mise à jour Spotify non bloquée | Réapplique l'étape 2 puis `spicetify backup apply` |
+→ Wait a few seconds — Spotify is loading Spicetify.
