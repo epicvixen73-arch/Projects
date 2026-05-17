@@ -30,8 +30,8 @@ Available on **Windows** and **Linux** (Ubuntu, Arch, Fedora).
 
 | Platform | Script | Usage |
 |---|---|---|
-| 🪟 Windows | [`install-spicetify.ps1`](install-spicetify.ps1) | PowerShell (without admin) |
-| 🐧 Linux | [`install-spicetify.sh`](install-spicetify.sh) | `bash install-spicetify.sh` |
+| Windows | [`install-spicetify.ps1`](install-spicetify.ps1) | PowerShell (without admin) |
+| Linux | [`install-spicetify.sh`](install-spicetify.sh) | `bash install-spicetify.sh` |
 
 ---
 
