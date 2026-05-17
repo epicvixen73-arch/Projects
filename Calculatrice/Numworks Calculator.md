@@ -1,18 +1,18 @@
-# 🧮 Scientific Calculator — NumWorks
+# Scientific Calculator — NumWorks
 
 > A scientific calculator application developed in **MicroPython** for the **NumWorks N0110/N0120** graphing calculator, covering **Math** and **Physics & Chemistry** formulas at the **Seconde** (10th grade) level.
 
 ---
 
-## 📋 Description
+## Description
 
 This project is an interactive scientific calculator that lets you quickly perform common calculations, organized through hierarchical menus. The app keeps a **history of calculations** made during the session and also offers a **Formulas** mode to browse and directly apply any formula from the curriculum.
 
 ---
 
-## ✨ Features
+## Features
 
-### 📐 Mathematics
+### Mathematics
 
 | Category | Available formulas |
 | --- | --- |
@@ -23,7 +23,7 @@ This project is an interactive scientific calculator that lets you quickly perfo
 | **Triangles** | Angle sum, Trigonometry (cos, sin, tan, arccos, arcsin, arctan) |
 | **Rates** | Rate of change, Compound rate |
 
-### ⚗️ Physics & Chemistry
+### Physics & Chemistry
 
 | Category | Available formulas |
 | --- | --- |
@@ -33,7 +33,7 @@ This project is an interactive scientific calculator that lets you quickly perfo
 | **Average speed** | Calculate v, d, or t |
 | **Forces** | Universal gravitational force, Weight |
 
-### 📖 Formulas Mode
+### Formulas Mode
 
 * Browse all **35 formulas** from the curriculum
 * Select a formula directly by number to run the calculation
@@ -45,7 +45,7 @@ This project is an interactive scientific calculator that lets you quickly perfo
 
 ---
 
-## 🚀 Installation & Usage
+## Installation & Usage
 
 ### Requirements
 
@@ -89,7 +89,7 @@ calculatrice.py
 
 ---
 
-## 📌 Built-in Constants
+## Built-in Constants
 
 | Constant | Value | Description |
 | --- | --- | --- |
@@ -103,7 +103,7 @@ calculatrice.py
 
 ---
 
-## 💡 Example Usage
+## Example Usage
 
 ```
 1: Maths, 2: Physics, 3: Formulas
@@ -129,7 +129,7 @@ c = 5.0
 
 ---
 
-## 🛠️ Technologies
+## Technologies
 
 * **Language**: Python 3 / MicroPython
 * **Platform**: NumWorks N0110 / N0120
