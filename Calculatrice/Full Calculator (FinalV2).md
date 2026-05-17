@@ -5,7 +5,7 @@ It lets you quickly compute functions, theorems, physical quantities, and much m
 
 ---
 
-## 🚀 Features
+## Features
 
 ### Mathematics
 
@@ -35,14 +35,14 @@ It lets you quickly compute functions, theorems, physical quantities, and much m
 
 ---
 
-## 📋 Requirements
+## Requirements
 
 * Python 3.x (tested with Python 3.7+)
 * No external libraries required (standard library only).
 
 ---
 
-## ▶️ Usage
+## Usage
 
 1. Clone the repository or download the `FinalV2.py` file.
 2. Run the script:
@@ -58,7 +58,7 @@ It lets you quickly compute functions, theorems, physical quantities, and much m
 
 ---
 
-## 🧱 Code Structure
+## Code Structure
 
 | File / Element | Description |
 | --- | --- |
@@ -98,7 +98,7 @@ The image of 5.0 is 25.0 by the square function.
 
 ---
 
-## 🛠️ Customization
+## Customization
 
 You can easily add new formulas:
 
