@@ -1,12 +1,12 @@
 # Installing Spotify with Spicetify — Key Steps Summary
-
-## ⚠️ Important
+## Installation for windows: 
+### ⚠️ Important
 
 Do **NOT** use the Microsoft Store version of Spotify — it is not compatible with Spicetify.
 
 ---
 
-## Step 1: Completely uninstall Spotify
+### Step 1: Completely uninstall Spotify
 
 ```
 winget uninstall Spotify.Spotify
@@ -21,7 +21,7 @@ Then delete the leftover folders:
 
 ---
 
-## Step 2: Download the standalone Spotify installer
+### Step 2: Download the standalone Spotify installer
 
 Download the official installer from:
 
@@ -37,7 +37,7 @@ https://github.com/SpotifyImporter/spotify-cdn/releases/tag/1.2.52.442
 
 ---
 
-## Step 3: Install Spotify
+### Step 3: Install Spotify
 
 Run the `SpotifyFullSetup.exe` installer normally.
 
@@ -45,7 +45,7 @@ Run the `SpotifyFullSetup.exe` installer normally.
 
 ---
 
-## Step 4: Block automatic updates
+### Step 4: Block automatic updates
 
 Open **PowerShell as Administrator** and paste:
 
@@ -67,7 +67,7 @@ Write-Host "✓ Updates blocked!"
 
 ---
 
-## Step 5: Install Spicetify
+### Step 5: Install Spicetify
 
 Close the admin PowerShell and open a **new PowerShell WITHOUT admin rights**.
 
@@ -85,7 +85,7 @@ iwr -useb https://raw.githubusercontent.com/spicetify/marketplace/main/resources
 
 ---
 
-## Step 6: Apply Spicetify
+### Step 6: Apply Spicetify
 
 In the same PowerShell (without admin), paste:
 
@@ -97,7 +97,7 @@ Spotify will launch automatically with Spicetify active. ✅
 
 ---
 
-## Final Verification
+### Final Verification
 
 * Spotify opens with the Spicetify theme applied
 * Automatic updates are blocked
@@ -105,20 +105,20 @@ Spotify will launch automatically with Spicetify active. ✅
 
 ---
 
-## Troubleshooting
+### Troubleshooting
 
-### Error: "Could not find part of the path"
+#### Error: "Could not find part of the path"
 
 → PowerShell doesn't have enough rights. Relaunch in **Administrator mode** for Step 4.
 
-### Error: "Spicetify should NOT be run with administrator privileges"
+#### Error: "Spicetify should NOT be run with administrator privileges"
 
 → You're in admin mode. Close and open a **regular PowerShell** for Step 6.
 
-### Spotify updates itself automatically
+#### Spotify updates itself automatically
 
 → Step 4 (blocking updates) didn't work. Retry the commands above as Administrator.
 
-### Spotify shows a black window
+#### Spotify shows a black window
 
 → Wait a few seconds — Spotify is loading Spicetify.
