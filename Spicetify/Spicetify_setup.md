@@ -2,11 +2,11 @@
 
 Full Guide at [Spicetify](https://github.com/spicetify/cli)
 
-> Intallation for [Windows](https://github.com/epicvixen73-arch/Projects/edit/main/Spicetify/Spicetify_setup.md#installation-for-windows)
+> Intallation for [Windows](#installation-for-windows)
 > 
-> Intalltion dor [macOS](https://github.com/epicvixen73-arch/Projects/edit/main/Spicetify/Spicetify_setup.md#installing-spotify-with-spicetify-on-macos)
+> Intalltion dor [macOS](#installing-spotify-with-spicetify-on-macos)
 > 
-> Intallation for [Linux](https://github.com/epicvixen73-arch/Projects/edit/main/Spicetify/Spicetify_setup.md#installing-spotify-with-spicetify-on-linux)
+> Intallation for [Linux](#installing-spotify-with-spicetify-on-linux)
 
 
 ## Installation for windows: 
