@@ -38,7 +38,7 @@ Available on **Windows** and **Linux** (Ubuntu, Arch, Fedora).
 ## Technologies Used
 
 - Python 3 / MicroPython
-- PowerShell / Bash (Windows & Linux scripting)
+- PowerShell / Bash (Windows / Linux & macOS scripting)
 
 ---
 
