@@ -8,11 +8,44 @@ namespace Calculatrice
 {
     internal class Program
     {
-        public int choix;
-        public int borne;
+        abstract class Operation
+        {
+            public abstract float Calcul(float a, float b);
+            public abstract string GetName();
+        }
+
+        class Addition : Operation
+        {
+            public override float Calcul(float a, float b)
+            {
+                return a + b;
+            }
+
+            public override string GetName()
+            {
+                return "Addition";
+            }
+        }
+        class Soustraction : Operation
+        {
+            public override float Calcul(float a, float b)
+            {
+                return a - b;
+            }
+
+            public override string GetName()
+            {
+                return "Soustraction";
+            }
+        }
+
         static void Main(string[] args)
         {
-            Operation[5] operations = new Operation[5];
+
+            List<Operation> operations = new List<Operation>();
+            operations.Add(new Addition());
+            operations.Add(new Soustraction());
+
             while (true)
             {
                 Console.WriteLine("~~~~[1]: Opérateur~~~~ \n~~~~[2]: Puissances~~~ \n~~~~[3]: Fonctions~~~~ \n~~~~[4]: Quit~~~~~~~~~");
@@ -26,17 +59,22 @@ namespace Calculatrice
                 switch (choix)
                 {
                     case 1:
-                        Console.WriteLine("~~~~Opérateur~~~~ \n==[1]: + \n==[2]: - \n==[3]: * \n==[4]: / \n==[5]: // \n==[6]: %");
+                        Console.WriteLine("~~~~Opérateur~~~~");
+                        foreach (Operation op in operations)
+                        {
+                            Console.WriteLine(op.GetName());
+                        }
                         int operateur = Convert.ToInt32(Console.ReadLine());
                         Console.Write("a: ");
                         float a = Convert.ToSingle(Console.ReadLine());
                         Console.Write("b: ");
                         float b = Convert.ToSingle(Console.ReadLine());
-                        if (!IsInBorne(operateur, 6))
+                        if (!IsInBorne(operateur, operations.Count))
                         {
                             continue;
                         }
 
+                        Console.WriteLine(operations[operateur-1].Calcul(a,b ));
                         break;
                     case 2:
 
@@ -53,7 +91,7 @@ namespace Calculatrice
         }
         static bool IsInBorne(int choix, int borne)
         {
-            if (choix < 0 || choix > borne)
+            if (choix < 1 || choix > borne)
             {
                 global::System.Console.WriteLine("Choix invalide !");
                 return false;
@@ -63,16 +101,6 @@ namespace Calculatrice
                 return true;
             }
         }
-        public abstract class Operation
-        {
-            public abstract float Calcul(float a, float b);
-        }
-        public class Addition : Operation
-        {
-            public override float Calcul(float a, float b)
-            {
-                return a + b;
-            }
-        }
+        
     }
 }
