@@ -38,6 +38,107 @@ namespace Calculatrice
                 return "Soustraction";
             }
         }
+        class Multiplication : Operation
+        {
+            public override float Calcul(float a, float b)
+            {
+                return a * b;
+            }
+
+            public override string GetName()
+            {
+                return "Multiplication";
+            }
+        }
+        class Division : Operation
+        {
+            public override float Calcul(float a, float b)
+            {
+                return a / b;
+            }
+
+            public override string GetName()
+            {
+                return "Division";
+            }
+        }
+        class Reste : Operation
+        {
+            public override float Calcul(float a, float b)
+            {
+                return a % b;
+            }
+
+            public override string GetName()
+            {
+                return "Reste";
+            }
+        }
+        abstract class Fonctions
+        {
+            public abstract float Fonction(float a);
+            public abstract string GetName();
+        }
+        class Carre : Fonctions
+        {
+            public override float Fonction(float a)
+            {
+                return (float)Math.Pow(a, 2);
+            }
+
+            public override string GetName()
+            {
+                return "Carre";
+            }
+        }
+        class Cube : Fonctions
+        {
+            public override float Fonction(float a)
+            {
+                return (float)Math.Pow(a, 3);
+            }
+
+            public override string GetName()
+            {
+                return "Cube";
+            }
+        }
+        class Inverse : Fonctions
+        {
+            public override float Fonction(float a)
+            {
+                return a / 1;
+            }
+
+            public override string GetName()
+            {
+                return "Inverse";
+            }
+        }
+        class Racine : Fonctions
+        {
+            public override float Fonction(float a)
+            {
+                return (float)Math.Sqrt(a);
+            }
+
+            public override string GetName()
+            {
+                return "Racine Carrée";
+            }
+        }
+        class Absolue : Fonctions
+        {
+            public override float Fonction(float a)
+            {
+                return (float)Math.Abs(a);
+            }
+
+            public override string GetName()
+            {
+                return "Valeur Absolue";
+            }
+        }
 
         static void Main(string[] args)
         {
@@ -45,6 +146,14 @@ namespace Calculatrice
             List<Operation> operations = new List<Operation>();
             operations.Add(new Addition());
             operations.Add(new Soustraction());
+
+            List<Fonctions> fonctions = new List<Fonctions>();
+            fonctions.Add(new Carre());
+            fonctions.Add(new Cube());
+            fonctions.Add(new Inverse());
+            fonctions.Add(new Racine());
+            fonctions.Add(new Absolue());
+
 
             while (true)
             {
@@ -81,10 +190,27 @@ namespace Calculatrice
                         Console.WriteLine("#######################");
                         break;
                     case 2:
-
+                        
                         break;
                     case 3:
+                        Console.WriteLine("-------Fonctions-------");
+                        for (int i = 0; i < fonctions.Count; i++)
+                        {
+                            Fonctions op = fonctions[i];
+                            Console.WriteLine("[" + (i + 1) + "] " + op.GetName());
+                        }
 
+                        int fonc = Convert.ToInt32(Console.ReadLine());
+                        if (!IsInBorne(fonc, fonctions.Count))
+                        {
+                            continue;
+                        }
+                        Console.WriteLine("-----------------------");
+                        Console.Write("a: ");
+                        a = Convert.ToSingle(Console.ReadLine());
+                        Console.WriteLine();
+                        Console.WriteLine("Result: " + fonctions[fonc - 1].Fonction(a));
+                        Console.WriteLine("#######################");
                         break;
                     case 4:
                         Console.WriteLine("Au revoir !");
