@@ -48,7 +48,7 @@ namespace Calculatrice
 
             while (true)
             {
-                Console.WriteLine("~~~~[1]: Opérateur~~~~ \n~~~~[2]: Puissances~~~ \n~~~~[3]: Fonctions~~~~ \n~~~~[4]: Quit~~~~~~~~~");
+                Console.WriteLine("-----[1]: Opérateur---- \n-----[2]: Puissances--- \n-----[3]: Fonctions---- \n-----[4]: Quit---------");
                 Console.Write("Choix: ");
                 int choix = Convert.ToInt32(Console.ReadLine());
                 Console.WriteLine();
@@ -59,22 +59,26 @@ namespace Calculatrice
                 switch (choix)
                 {
                     case 1:
-                        Console.WriteLine("~~~~Opérateur~~~~");
-                        foreach (Operation op in operations)
+                        Console.WriteLine("-------Opérateur-------");
+                        for (int i = 0; i < operations.Count; i++)
                         {
-                            Console.WriteLine(op.GetName());
+                            Operation op = operations[i];
+                            Console.WriteLine("[" + (i+1) + "] " + op.GetName());
                         }
+                        
                         int operateur = Convert.ToInt32(Console.ReadLine());
-                        Console.Write("a: ");
-                        float a = Convert.ToSingle(Console.ReadLine());
-                        Console.Write("b: ");
-                        float b = Convert.ToSingle(Console.ReadLine());
                         if (!IsInBorne(operateur, operations.Count))
                         {
                             continue;
                         }
-
-                        Console.WriteLine(operations[operateur-1].Calcul(a,b ));
+                        Console.WriteLine("-----------------------");
+                        Console.Write("a: ");
+                        float a = Convert.ToSingle(Console.ReadLine());
+                        Console.Write("b: ");
+                        float b = Convert.ToSingle(Console.ReadLine());
+                        Console.WriteLine();
+                        Console.WriteLine("Result: " + operations[operateur-1].Calcul(a,b ));
+                        Console.WriteLine("#######################");
                         break;
                     case 2:
 
