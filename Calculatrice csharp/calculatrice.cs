@@ -146,6 +146,10 @@ namespace Calculatrice
             List<Operation> operations = new List<Operation>();
             operations.Add(new Addition());
             operations.Add(new Soustraction());
+            operations.Add(new Multiplication());
+            operations.Add(new Division());
+            operations.Add(new Reste());
+
 
             List<Fonctions> fonctions = new List<Fonctions>();
             fonctions.Add(new Carre());
