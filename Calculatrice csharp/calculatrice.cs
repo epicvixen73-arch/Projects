@@ -188,9 +188,18 @@ namespace Calculatrice
                         Console.WriteLine();
                         Console.WriteLine("Result: " + operations[operateur-1].Calcul(a,b ));
                         Console.WriteLine("#######################");
+                        Console.WriteLine();
                         break;
                     case 2:
-                        
+                        Console.WriteLine("-------Puissances------");
+                        Console.Write("a: ");
+                        a = Convert.ToSingle(Console.ReadLine());
+                        Console.Write("n: ");
+                        int n = Convert.ToInt32(Console.ReadLine());
+                        Console.WriteLine();
+                        Console.WriteLine("Result de " + a +"^"+ n + " : " + (float)Math.Pow(a, n));
+                        Console.WriteLine("#######################");
+                        Console.WriteLine();
                         break;
                     case 3:
                         Console.WriteLine("-------Fonctions-------");
@@ -211,6 +220,7 @@ namespace Calculatrice
                         Console.WriteLine();
                         Console.WriteLine("Result: " + fonctions[fonc - 1].Fonction(a));
                         Console.WriteLine("#######################");
+                        Console.WriteLine();
                         break;
                     case 4:
                         Console.WriteLine("Au revoir !");
