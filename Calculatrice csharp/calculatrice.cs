@@ -142,7 +142,6 @@ namespace Calculatrice
 
         static void Main(string[] args)
         {
-
             List<Operation> operations = new List<Operation>();
             operations.Add(new Addition());
             operations.Add(new Soustraction());
@@ -161,81 +160,93 @@ namespace Calculatrice
 
             while (true)
             {
-                Console.WriteLine("-----[1]: Opérateur---- \n-----[2]: Puissances--- \n-----[3]: Fonctions---- \n-----[4]: Quit---------");
-                Console.Write("Choix: ");
-                int choix = Convert.ToInt32(Console.ReadLine());
-                Console.WriteLine();
-                if  (!IsInBorne(choix, 4))
+                string message = "-----[1]: Opérateur---- " +
+                    "\n-----[2]: Puissances--- " +
+                    "\n-----[3]: Fonctions---- " +
+                    "\n-----[4]: Quit--------- " +
+                    "\nChoix: ";
+
+                //Console.WriteLine(message);
+                //Console.Write("Choix: ");
+                //choix = Convert.ToInt32(Console.ReadLine());
+                //Console.WriteLine();
+                if (!Saisir(message, out int choix, 4)) 
                 {
                     continue;
                 }
                 switch (choix)
                 {
                     case 1:
-                        Console.WriteLine("-------Opérateur-------");
+                        message = "-------Opérateur-------";
                         for (int i = 0; i < operations.Count; i++)
                         {
                             Operation op = operations[i];
-                            Console.WriteLine("[" + (i+1) + "] " + op.GetName());
+                            message += "\n[" + (i+1) + "] " + op.GetName();
                         }
-                        
-                        int operateur = Convert.ToInt32(Console.ReadLine());
-                        if (!IsInBorne(operateur, operations.Count))
+                        message += "\nChoix: ";
+                        if (!Saisir(message, out int choix_operateur, operations.Count))
                         {
                             continue;
                         }
                         Console.WriteLine("-----------------------");
                         Console.Write("a: ");
-                        float a = Convert.ToSingle(Console.ReadLine());
+                        float a_ope = Convert.ToSingle(Console.ReadLine());
                         Console.Write("b: ");
                         float b = Convert.ToSingle(Console.ReadLine());
                         Console.WriteLine();
-                        Console.WriteLine("Result: " + operations[operateur-1].Calcul(a,b ));
+                        Console.WriteLine("Result: " + operations[choix_operateur-1].Calcul(a_ope,b ));
                         Console.WriteLine("#######################");
                         Console.WriteLine();
                         break;
                     case 2:
                         Console.WriteLine("-------Puissances------");
-                        Console.Write("a: ");
-                        a = Convert.ToSingle(Console.ReadLine());
-                        Console.Write("n: ");
-                        int n = Convert.ToInt32(Console.ReadLine());
+                        if (!Saisir("a: ", out int a))
+                        {
+                            continue;
+                        }
+                        if (!Saisir("n: ", out int n))
+                        {
+                            continue;
+                        }
                         Console.WriteLine();
                         Console.WriteLine("Result de " + a +"^"+ n + " : " + (float)Math.Pow(a, n));
                         Console.WriteLine("#######################");
                         Console.WriteLine();
                         break;
                     case 3:
-                        Console.WriteLine("-------Fonctions-------");
+                        message = "-------Fonctions-------";
                         for (int i = 0; i < fonctions.Count; i++)
                         {
                             Fonctions op = fonctions[i];
-                            Console.WriteLine("[" + (i + 1) + "] " + op.GetName());
+                            message += "\n[" + (i + 1) + "] " + op.GetName();
                         }
-
-                        int fonc = Convert.ToInt32(Console.ReadLine());
-                        if (!IsInBorne(fonc, fonctions.Count))
+                        message += "\nChoix: ";
+                        if (!Saisir(message, out int choix_fonctions, fonctions.Count))
                         {
                             continue;
                         }
                         Console.WriteLine("-----------------------");
-                        Console.Write("a: ");
-                        a = Convert.ToSingle(Console.ReadLine());
+                        if (!Saisir("x: ", out float x))
+                        {
+                            continue;
+                        }
                         Console.WriteLine();
-                        Console.WriteLine("Result: " + fonctions[fonc - 1].Fonction(a));
+                        Console.WriteLine("Result: " + fonctions[choix_fonctions - 1].Fonction(x));
                         Console.WriteLine("#######################");
                         Console.WriteLine();
                         break;
                     case 4:
                         Console.WriteLine("Au revoir !");
                         return;
+
                 }
             }
-          
         }
-        static bool IsInBorne(int choix, int borne)
+        //fonction pour verif typo
+
+        static bool IsInBorne(float choix, float borne)
         {
-            if (choix < 1 || choix > borne)
+            if (choix< 1 || choix> borne)
             {
                 global::System.Console.WriteLine("Choix invalide !");
                 return false;
@@ -245,6 +256,47 @@ namespace Calculatrice
                 return true;
             }
         }
-        
+
+
+        //Saisir en int
+        static bool Saisir(string message, out int choix, int borne = int.MaxValue)
+        {
+            Console.Write("\n" + message);
+            while (true)
+            {
+                string saisi = Console.ReadLine();
+                if (int.TryParse(saisi, out choix))
+                {
+                    return IsInBorne(choix, borne);
+                }
+                else
+                {
+                    Console.WriteLine("Invalide, reboot... ");
+                    return false;
+                }
+            }
+        }
+
+
+        //Saisir en float
+        static bool Saisir(string message, out float choix, float borne = float.MaxValue)
+        {
+            Console.Write("\n" + message);
+            while (true)
+            {
+                string saisi = Console.ReadLine();
+                if (float.TryParse(saisi, out choix))
+                {
+                    return IsInBorne(choix, borne);
+                }
+                else
+                {
+                    Console.WriteLine("Invalide, reboot... ");
+                    return false;
+                }
+            }
+        }
+        //fonction pour reset ligne pour du dynamique*
+
     }
 }
