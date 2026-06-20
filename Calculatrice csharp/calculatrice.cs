@@ -13,7 +13,6 @@ namespace Calculatrice
             public abstract float Calcul(float a, float b);
             public abstract string GetName();
         }
-
         class Addition : Operation
         {
             public override float Calcul(float a, float b)
