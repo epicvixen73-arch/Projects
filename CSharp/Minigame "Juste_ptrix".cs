@@ -12,15 +12,13 @@ namespace Juste_prix
         static void Main(string[] args)
         {
             Random al = new Random();
-            int aleatoire = al.Next(0, 51);
             int UserGuess;
             int NbGuess = 5;
             string Credit = "Fin du jeu, merci d'y avoir joué ! ";
             int Score = 0; //0 = perdu; 1 = Gagné
-            Console.WriteLine(aleatoire);
             while (NbGuess > 0 && Score ==0)
             {
-                if (Saisir("Ton guess: ", out int Guess, aleatoire)) //mettre aleatoire en `al.Next(0, 51)` mais en `aleatoire` pour débugger
+                if (Saisir("Ton guess: ", out int Guess, al.Next(0, 51)))
                 {
                     Score = 1;
                     Console.WriteLine(Credit);
@@ -31,7 +29,7 @@ namespace Juste_prix
                     Console.WriteLine(Credit);
                     break;
                 }
-                NbGuess += -1;
+                NbGuess -- ;
                 Console.WriteLine(NbGuess + " / 5 essai(s) restant(s). ");
             }
         }
