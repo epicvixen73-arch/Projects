@@ -167,7 +167,8 @@ namespace Calculatrice
                     "\n-----[3]: Fonctions---- " +
                     "\n-----[4]: Quit--------- " +
                     "\nChoix: ";
-                if (!Saisir(message, out int choix, 4)) continue;
+                if (!Saisir(message, out int choix, 4)) 
+                    continue;
                 switch (choix)
                 {
                     case 1:
@@ -178,7 +179,8 @@ namespace Calculatrice
                             message += "\n[" + (i+1) + "] " + op.GetName();
                         }
                         message += "\nChoix: ";
-                        if (!Saisir(message, out int choix_operateur, operations.Count)) continue;
+                        if (!Saisir(message, out int choix_operateur, operations.Count)) 
+                            continue;
                         Console.WriteLine("-----------------------");
                         Console.Write("a: ");
                         float a_ope = Convert.ToSingle(Console.ReadLine());
@@ -189,8 +191,10 @@ namespace Calculatrice
                         break;
                     case 2:
                         Console.WriteLine("-------Puissances------");
-                        if (!Saisir("a: ", out int a)) continue;
-                        if (!Saisir("n: ", out int n)) continue;
+                        if (!Saisir("a: ", out int a)) 
+                            continue;
+                        if (!Saisir("n: ", out int n)) 
+                            continue;
                         Console.WriteLine();
                         Console.WriteLine("Result de " + a +"^"+ n + " : " + (float)Math.Pow(a, n));
                         break;
@@ -202,9 +206,11 @@ namespace Calculatrice
                             message += "\n[" + (i + 1) + "] " + op.GetName();
                         }
                         message += "\nChoix: ";
-                        if (!Saisir(message, out int choix_fonctions, fonctions.Count)) continue;
+                        if (!Saisir(message, out int choix_fonctions, fonctions.Count)) 
+                            continue;
                         Console.WriteLine("-----------------------");
-                        if (!Saisir("x: ", out float x)) continue;
+                        if (!Saisir("x: ", out float x)) 
+                            continue;
                         Console.WriteLine();
                         Console.WriteLine("Result: " + fonctions[choix_fonctions - 1].Fonction(x));
                         break;
@@ -219,8 +225,10 @@ namespace Calculatrice
 
         static bool IsInBorne(float choix, float borne)
         {
-            if (choix< 1 || choix> borne) global::System.Console.WriteLine("Choix invalide !") return false;
-            else return true;
+            if (choix< 1 || choix> borne) global::System.Console.WriteLine("Choix invalide !") 
+                return false;
+            else 
+                return true;
         }
 
         //Saisir en int
@@ -230,8 +238,10 @@ namespace Calculatrice
             while (true)
             {
                 string saisi = Console.ReadLine();
-                if (int.TryParse(saisi, out choix)) return IsInBorne(choix, borne);
-                else Console.WriteLine("Invalide, reboot... ") return false;
+                if (int.TryParse(saisi, out choix)) 
+                    return IsInBorne(choix, borne);
+                else Console.WriteLine("Invalide, reboot... ") 
+                        return false;
             }
         }
 
@@ -243,8 +253,10 @@ namespace Calculatrice
             while (true)
             {
                 string saisi = Console.ReadLine();
-                if (float.TryParse(saisi, out choix)) return IsInBorne(choix, borne);
-                else Console.WriteLine("Invalide, reboot... ") return false;
+                if (float.TryParse(saisi, out choix)) 
+                    return IsInBorne(choix, borne);
+                else Console.WriteLine("Invalide, reboot... ") 
+                    return false;
             }
         }
         //fonction pour reset ligne pour du dynamique*
