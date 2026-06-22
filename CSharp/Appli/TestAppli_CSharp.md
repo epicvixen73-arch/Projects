@@ -1,6 +1,7 @@
 # Test App (Calculatrice + Minigame)
 
 Une **application console intégrée en C#** combinant une calculatrice scientifique et un minigame de devinette, avec menu de navigation central.
+Lien du fichier si envie de tester: [TesAppli.cs](https://github.com/epicvixen73-arch/Projects/blob/main/CSharp/Appli/TestAppli.cs)
 
 ## Fonctionnalités Principales
 
