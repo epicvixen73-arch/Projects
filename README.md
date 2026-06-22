@@ -7,9 +7,9 @@ Here you'll find tools I built to automate, calculate, and customize my setup.
 - [1st Project -   Math & Physics Calculator (PC)](https://github.com/epicvixen73-arch/Projects/tree/main#1--math--physics-calculator-pc)
 - [2nd Project -   NumWorks Calculator](https://github.com/epicvixen73-arch/Projects/tree/main#2--numworks-calculator)
 - [3rd Project -   Spicetify Setup on Windows & Linux](https://github.com/epicvixen73-arch/Projects/tree/main#3--spicetify-setup-on-windows--linux)
-- [4th Project -   Calculator in C#]()
-- [5th Project -   Minigame in C#]()
-- [6th Project -   App in C#]()
+- [4th Project -   Calculator in C#](https://github.com/epicvixen73-arch/Projects/blob/main/README.md#4---calculator-in-c)
+- [5th Project -   Minigame in C#](https://github.com/epicvixen73-arch/Projects/blob/main/README.md#5---minigame-in-c)
+- [6th Project -   App in C#](https://github.com/epicvixen73-arch/Projects/blob/main/README.md#6---app-in-c)
 --- 
 
 ## 📦 Available Projects
