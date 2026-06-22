@@ -51,7 +51,7 @@ An **interactive console calculator** with object-oriented architecture using ab
 
 **Architecture** — Abstract classes `Operation` and `Fonctions` with polymorphic implementations, overloaded input validation in 2 versions (`int`, `float`)
 
-→ Detailed documentation: [`Calculatrice_CSharp.md`](https://github.com/epicvixen73-arch/Projects/blob/main/CSharp/Calculatrice_CSharp.md)
+→ Detailed documentation: [`Calculatrice_CSharp.md`](https://github.com/epicvixen73-arch/Projects/blob/main/CSharp/Calculatrice/Calculatrice_CSharp.md)
 
 ---
 
