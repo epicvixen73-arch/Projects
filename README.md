@@ -42,7 +42,7 @@ Available on **Windows** and **Linux** (Ubuntu, Arch, Fedora).
 
 ---
 ## 🚧 In Construction 🚧
-### 4 - Calculator in C#
+### 4 - [Calculator in C#](https://github.com/epicvixen73-arch/Projects/blob/main/CSharp/Calculatrice/Calculatrice_CSharp.md)
 An **interactive console calculator** with object-oriented architecture using abstract classes and inheritance.
 
 **Operators** — Addition, Subtraction, Multiplication, Division, Remainder  
@@ -51,11 +51,9 @@ An **interactive console calculator** with object-oriented architecture using ab
 
 **Architecture** — Abstract classes `Operation` and `Fonctions` with polymorphic implementations, overloaded input validation in 2 versions (`int`, `float`)
 
-→ Detailed documentation: [`Calculatrice_CSharp.md`](https://github.com/epicvixen73-arch/Projects/blob/main/CSharp/Calculatrice/Calculatrice_CSharp.md)
-
 ---
 
-### 5 - Minigame in C#
+### 5 - [Minigame in C#](https://github.com/epicvixen73-arch/Projects/blob/main/CSharp/Minigame/Minigame_Juste_Prix.md)
 A **simple guessing game** — Guess a number between 0 and 50 in 5 attempts.
 
 **Mechanics** — You win if your guess is exactly **or within ±1** of the secret number  
@@ -64,11 +62,9 @@ A **simple guessing game** — Guess a number between 0 and 50 in 5 attempts.
 
 **Key points** — Random generation with `Random.Next()`, attempt counter, display of the secret number at the end of the game
 
-→ Detailed documentation: [`Minigame_Juste_Prix.md`](https://github.com/epicvixen73-arch/Projects/blob/main/CSharp/Minigame/Minigame_Juste_Prix.md)
-
 ---
 
-### 6 - App in C#
+### 6 - [App in C#](https://github.com/epicvixen73-arch/Projects/blob/main/CSharp/Appli/TestAppli_CSharp.md)
 Testing the Creation of an App that for the moment contain the calculator and the minigame in it.
 An **integrated application** that combines the two previous projects with a **central navigation menu**.
 
@@ -80,8 +76,6 @@ An **integrated application** that combines the two previous projects with a **c
 **Architecture** — Reuses the abstract classes (`Operation`, `Fonctions`), overloaded validation methods (`Saisir()`), and the minigame logic in an optional switch
 
 **Concepts demonstrated** — Multi-level polymorphism, state management with flags, nested flow control, code reusability
-
-→ Detailed documentation: [`TestAppli_CSharp.md`](https://github.com/epicvixen73-arch/Projects/blob/main/CSharp/TestAppli_CSharp.md)
 
 ## Technologies Used
 
