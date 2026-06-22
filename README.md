@@ -64,7 +64,7 @@ A **simple guessing game** — Guess a number between 0 and 50 in 5 attempts.
 
 **Key points** — Random generation with `Random.Next()`, attempt counter, display of the secret number at the end of the game
 
-→ Detailed documentation: [`Minigame_Juste_Prix.md`](https://github.com/epicvixen73-arch/Projects/blob/main/CSharp/Minigame_Juste_Prix.md)
+→ Detailed documentation: [`Minigame_Juste_Prix.md`](https://github.com/epicvixen73-arch/Projects/blob/main/CSharp/Minigame/Minigame_Juste_Prix.md)
 
 ---
 
