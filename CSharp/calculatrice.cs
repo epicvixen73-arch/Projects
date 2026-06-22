@@ -160,6 +160,8 @@ namespace Calculatrice
 
             while (true)
             {
+                global::System.Console.WriteLine("#######################");
+                global::System.Console.WriteLine();
                 string message = "-----[1]: Opérateur---- " +
                     "\n-----[2]: Puissances--- " +
                     "\n-----[3]: Fonctions---- " +
@@ -184,8 +186,6 @@ namespace Calculatrice
                         float b = Convert.ToSingle(Console.ReadLine());
                         Console.WriteLine();
                         Console.WriteLine("Result: " + operations[choix_operateur-1].Calcul(a_ope,b ));
-                        Console.WriteLine("#######################");
-                        Console.WriteLine();
                         break;
                     case 2:
                         Console.WriteLine("-------Puissances------");
@@ -193,8 +193,6 @@ namespace Calculatrice
                         if (!Saisir("n: ", out int n)) continue;
                         Console.WriteLine();
                         Console.WriteLine("Result de " + a +"^"+ n + " : " + (float)Math.Pow(a, n));
-                        Console.WriteLine("#######################");
-                        Console.WriteLine();
                         break;
                     case 3:
                         message = "-------Fonctions-------";
@@ -209,8 +207,6 @@ namespace Calculatrice
                         if (!Saisir("x: ", out float x)) continue;
                         Console.WriteLine();
                         Console.WriteLine("Result: " + fonctions[choix_fonctions - 1].Fonction(x));
-                        Console.WriteLine("#######################");
-                        Console.WriteLine();
                         break;
                     case 4:
                         Console.WriteLine("Au revoir !");
