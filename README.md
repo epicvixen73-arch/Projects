@@ -43,15 +43,45 @@ Available on **Windows** and **Linux** (Ubuntu, Arch, Fedora).
 ---
 ## 🚧 In Construction 🚧
 ### 4 - Calculator in C#
+An **interactive console calculator** with object-oriented architecture using abstract classes and inheritance.
 
+**Operators** — Addition, Subtraction, Multiplication, Division, Remainder  
+**Functions** — Square, Cube, Square Root, Absolute Value, Inverse  
+**Powers** — Computes `a^n` for any exponent  
+
+**Architecture** — Abstract classes `Operation` and `Fonctions` with polymorphic implementations, overloaded input validation in 2 versions (`int`, `float`)
+
+→ Detailed documentation: [`Calculatrice_CSharp.md`](https://github.com/epicvixen73-arch/Projects/blob/main/CSharp/Calculatrice_CSharp.md)
+
+---
 
 ### 5 - Minigame in C#
+A **simple guessing game** — Guess a number between 0 and 50 in 5 attempts.
 
+**Mechanics** — You win if your guess is exactly **or within ±1** of the secret number  
+**Feedback** — The game indicates whether the value is higher or lower  
+**Validation** — Robust error handling with retry on invalid input
+
+**Key points** — Random generation with `Random.Next()`, attempt counter, display of the secret number at the end of the game
+
+→ Detailed documentation: [`Minigame_Juste_Prix.md`](https://github.com/epicvixen73-arch/Projects/blob/main/CSharp/Minigame_Juste_Prix.md)
+
+---
 
 ### 6 - App in C#
 Testing the Creation of an App that for the moment contain the calculator and the minigame in it.
+An **integrated application** that combines the two previous projects with a **central navigation menu**.
 
+**Main Menu**:
+1. **Calculator** — All the power of the calculator module as an option
+2. **Juste Prix** — Play the minigame at any time
+3. **Exit** — Close the application
 
+**Architecture** — Reuses the abstract classes (`Operation`, `Fonctions`), overloaded validation methods (`Saisir()`), and the minigame logic in an optional switch
+
+**Concepts demonstrated** — Multi-level polymorphism, state management with flags, nested flow control, code reusability
+
+→ Detailed documentation: [`TestAppli_CSharp.md`](https://github.com/epicvixen73-arch/Projects/blob/main/CSharp/TestAppli_CSharp.md)
 
 ## Technologies Used
 
