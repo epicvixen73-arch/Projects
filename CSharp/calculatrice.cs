@@ -164,11 +164,6 @@ namespace Calculatrice
                     "\n-----[3]: Fonctions---- " +
                     "\n-----[4]: Quit--------- " +
                     "\nChoix: ";
-
-                //Console.WriteLine(message);
-                //Console.Write("Choix: ");
-                //choix = Convert.ToInt32(Console.ReadLine());
-                //Console.WriteLine();
                 if (!Saisir(message, out int choix, 4)) 
                 {
                     continue;
