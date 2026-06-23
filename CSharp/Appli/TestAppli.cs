@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Math = System.Math;
+using System.Globalization;
 namespace Test_App
 {
     internal class Program
@@ -200,10 +201,11 @@ namespace Test_App
 |________/|__/  \__/|__/   \___/  
                                   
 ";
-            PrintBanner(asciiApp, ConsoleColor.Red);
             while (true)
             {
                 //Interface de base
+                Console.Clear();
+                PrintBanner(asciiApp, ConsoleColor.Red);
                 if (!Saisir("===  Test_App  === \n1: Calculatrice \n2: Juste Prix \n3: Convertisseur °C/°F\n4: Quitter \nChoix: " , out int ActionChoice, 4))
                 {
                     //"Choix" sera un bouton input et le reste des propositions seront soit un log si TUI ou juste component si UI 
@@ -236,11 +238,7 @@ namespace Test_App
                         {
                             global::System.Console.WriteLine("#######################");
                             global::System.Console.WriteLine();
-                            string message = "-----[1]: Opérateur---- " +
-                                "\n-----[2]: Puissances--- " +
-                                "\n-----[3]: Fonctions---- " +
-                                "\n-----[4]: Quit--------- " +
-                                "\nChoix: ";
+                            string message = "-----[1]: Opérateur---- \n-----[2]: Puissances--- \n-----[3]: Fonctions---- \n-----[4]: Quit--------- \nChoix: ";
                             if (!Saisir(message, out int choix, 4))
                                 continue;
                             switch (choix)
@@ -352,20 +350,13 @@ namespace Test_App
                     case 3:
                         // Convertisseur °C <-> °F
                         PrintBanner(asciiMeteo, ConsoleColor.Green);
-                        Console.WriteLine("------Convertisseur------");
                         Console.WriteLine("1: °C -> °F");
                         Console.WriteLine("2: °F -> °C");
                         if (!Saisir("Choix: ", out int convChoice, 2))
-                        {
                             break;
-                        }
-                        Console.Write("Température: ");
-                        string tempS = Console.ReadLine();
-                        if (!float.TryParse(tempS, out float tempVal))
-                        {
-                            Console.WriteLine("Valeur invalide.");
+
+                        if (!SaisirAnyFloat("Température: ", out float tempVal))
                             break;
-                        }
 
                         if (convChoice == 1)
                         {
@@ -380,6 +371,9 @@ namespace Test_App
                         break;
                     case 4:
                         //Quit
+
+                        //Rajouterv le print de l'historiqueb après ce commentaire mais au dessus du clear.
+                        Console.Clear();
                         PrintBanner(asciiExit, ConsoleColor.DarkGray);
                         return;
                 }
@@ -425,9 +419,22 @@ namespace Test_App
         }
         static void PrintBanner(string banner, ConsoleColor color = ConsoleColor.Cyan)
         {
+            Console.Clear();
             Console.ForegroundColor = color;
             Console.WriteLine(banner);
             Console.ResetColor();
+        }
+        static bool SaisirAnyFloat(string message, out float userChoice)
+        {
+            Console.Write("\n" + message);
+            string saisi = Console.ReadLine();
+            if (float.TryParse(saisi, out userChoice))
+            {
+                return true;
+            }
+            Console.WriteLine("Invalide, reboot...");
+            userChoice = 0f;
+            return false;
         }
     }
 }
