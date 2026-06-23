@@ -17,14 +17,14 @@ Here you'll find tools I built to automate, calculate, and customize my setup.
 ### 1 - [Math & Physics Calculator (PC)](https://github.com/epicvixen73-arch/Projects/blob/main/Calculatrice/Full%20Calculator%20(FinalV2).md)
 An interactive **Python 3** calculator covering math and physics formulas at the 10th grade level.  
 Hierarchical menus, calculation history, input validation, 33+ available formulas.  
-→ Main file: [`FinalV2.py`](FinalV2.py)
+→ Main file: [`FinalV2.py`](https://github.com/epicvixen73-arch/Projects/blob/main/Calculatrice/FinalV2.py)
 
 ---
 
 ### 2 - [NumWorks Calculator](https://github.com/epicvixen73-arch/Projects/blob/main/Calculatrice/Numworks%20Calculator.md)
 The same calculator, adapted for the **NumWorks N0110/N0120** in **MicroPython**.  
 35 formulas, compact menus, built-in physical constants.  
-→ Main file: [`calculatrice_numworks.py`](calculatrice_numworks.py)
+→ Main file: [`calculatrice_numworks.py`](https://github.com/epicvixen73-arch/Projects/blob/main/Calculatrice/FinalV2.py)
 
 ---
 
