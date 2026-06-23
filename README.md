@@ -5,31 +5,39 @@ Here you'll find tools I built to automate, calculate, and customize my setup.
 
 ---
 - [1st Project -   Math & Physics Calculator (PC)](https://github.com/epicvixen73-arch/Projects/tree/main#1--math--physics-calculator-pc)
-- [2nd Project -   NumWorks Calculator](https://github.com/epicvixen73-arch/Projects/tree/main#2--numworks-calculator)
-- [3rd Project -   Spicetify Setup on Windows & Linux](https://github.com/epicvixen73-arch/Projects/tree/main#3--spicetify-setup-on-windows--linux)
-- [4th Project -   Calculator in C#](https://github.com/epicvixen73-arch/Projects/blob/main/README.md#4---calculator-in-c)
-- [5th Project -   Minigame in C#](https://github.com/epicvixen73-arch/Projects/blob/main/README.md#5---minigame-in-c)
-- [6th Project -   App in C#](https://github.com/epicvixen73-arch/Projects/blob/main/README.md#6---app-in-c)
+- [2nd Project -  Calculatrice Math_Physique-(Refactored)]()
+- [3rd Project -   NumWorks Calculator](https://github.com/epicvixen73-arch/Projects/tree/main#3--numworks-calculator)
+- [4th Project -   Spicetify Setup on Windows & Linux](https://github.com/epicvixen73-arch/Projects/tree/main#4--spicetify-setup-on-windows--linux)
+- [5th Project -   Calculator in C#](https://github.com/epicvixen73-arch/Projects/blob/main/README.md#5---calculator-in-c)
+- [6th Project -   Minigame in C#](https://github.com/epicvixen73-arch/Projects/blob/main/README.md#6---minigame-in-c)
+- [7th Project -   App in C#](https://github.com/epicvixen73-arch/Projects/blob/main/README.md#7---app-in-c)
 --- 
 
 ## 📦 Available Projects
 
-### 1 - [Math & Physics Calculator (PC)](https://github.com/epicvixen73-arch/Projects/blob/main/Calculatrice/Full%20Calculator.md)
+### 1 - [Math & Physics Calculator (PC)](https://github.com/epicvixen73-arch/Projects/blob/main/Calculatrice/Base%20PC/Full%20Calculator.md)
 An interactive **Python 3** calculator covering math and physics formulas at the 10th grade level.  
 Hierarchical menus, calculation history, input validation, 33+ available formulas.  
-- [ ] Main file: [`FinalV2.py`](https://github.com/epicvixen73-arch/Projects/blob/main/Calculatrice/FinalV2.py)
-- [ ] Refactored file: [`Calc.py`](https://github.com/epicvixen73-arch/Projects/blob/main/Calculatrice/Calc.py)
+- [ ] Main file: [`FinalV2.py`](https://github.com/epicvixen73-arch/Projects/blob/main/Calculatrice/Base%20PC/FinalV2.py)
 
 ---
 
-### 2 - [NumWorks Calculator](https://github.com/epicvixen73-arch/Projects/blob/main/Calculatrice/Numworks%20Calculator.md)
+### 2 - [Calculatrice Math_Physique-(Refactored)](https://github.com/epicvixen73-arch/Projects/blob/main/Calculatrice/Base%20PC%20(refactored)/Calculatrice%20Math_Physique-(Refactored).md)
+An interactive **Python 3** calculator covering math and physics formulas at the 10th grade level.  
+Refactored into a fully data-driven menu architecture (`Menu`/`Action` tree) — adding a new formula now takes one function + one line, with zero duplicated logic.  
+35 available formulas, calculation history, input validation.
+- [ ] Main file: [`Calc.py`](https://github.com/epicvixen73-arch/Projects/blob/main/Calculatrice/Base%20PC%20(refactored)/Calc.py)
+
+---
+
+### 3 - [NumWorks Calculator](https://github.com/epicvixen73-arch/Projects/blob/main/Calculatrice/Numworks/Numworks%20Calculator.md)
 The same calculator, adapted for the **NumWorks N0110/N0120** in **MicroPython**.  
 35 formulas, compact menus, built-in physical constants.  
 - [ ] Main file: [`calculatrice_numworks.py`](https://github.com/epicvixen73-arch/Projects/blob/main/Calculatrice/calculatrice_numworks.py)
 
 ---
 
-### 3 - [Spicetify Setup on Windows & Linux](https://github.com/epicvixen73-arch/Projects/blob/main/Spicetify/Spicetify_setup.md)
+### 4 - [Spicetify Setup on Windows & Linux](https://github.com/epicvixen73-arch/Projects/blob/main/Spicetify/Spicetify_setup.md)
 A step-by-step guide to install **Spicetify + Marketplace** on standalone Spotify.  
 Includes automatic update blocking and troubleshooting.  
 Available on **Windows** and **Linux** (Ubuntu, Arch, Fedora).
@@ -43,7 +51,7 @@ Available on **Windows** and **Linux** (Ubuntu, Arch, Fedora).
 
 ---
 ## 🚧 In Construction 🚧
-### 4 - [Calculator in C#](https://github.com/epicvixen73-arch/Projects/blob/main/CSharp/Calculatrice/Calculatrice_CSharp.md)
+### 5 - [Calculator in C#](https://github.com/epicvixen73-arch/Projects/blob/main/CSharp/Calculatrice/Calculatrice_CSharp.md)
 An **interactive console calculator** with object-oriented architecture using abstract classes and inheritance.
 
 **Operators** — Addition, Subtraction, Multiplication, Division, Remainder  
@@ -56,7 +64,7 @@ An **interactive console calculator** with object-oriented architecture using ab
 
 ---
 
-### 5 - [Minigame in C#](https://github.com/epicvixen73-arch/Projects/blob/main/CSharp/Minigame/Minigame_Juste_Prix.md)
+### 6 - [Minigame in C#](https://github.com/epicvixen73-arch/Projects/blob/main/CSharp/Minigame/Minigame_Juste_Prix.md)
 A **simple guessing game** — Guess a number between 0 and 50 in 5 attempts.
 
 **Mechanics** — You win if your guess is exactly **or within ±1** of the secret number  
@@ -69,7 +77,7 @@ A **simple guessing game** — Guess a number between 0 and 50 in 5 attempts.
 
 ---
 
-### 6 - [App in C#](https://github.com/epicvixen73-arch/Projects/blob/main/CSharp/Appli/TestAppli_CSharp.md)
+### 7 - [App in C#](https://github.com/epicvixen73-arch/Projects/blob/main/CSharp/Appli/TestAppli_CSharp.md)
 Testing the Creation of an App that for the moment contain the calculator and the minigame in it.
 An **integrated application** that combines the two previous projects with a **central navigation menu**.
 
