@@ -106,7 +106,7 @@ namespace Test_App
         {
             public override float Fonction(float a)
             {
-                return a / 1;
+                return 1 / a;
             }
 
             public override string GetName()
