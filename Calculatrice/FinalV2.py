@@ -102,7 +102,7 @@ def executer_formule(choix):
         historique.append(f"Racine carrée: sqrt({x}) = {res}")
     elif choix == 5:  # Valeur absolue
         x = float(input("x: "))
-        res = arrondi(sqrt(pow(x, 2)))
+        res = arrondi(abs(x))
         print(f"L'image de {x} est {res} par la fonction valeur absolue.")
         historique.append(f"Valeur Absolue: |{x}| = {res}")
     elif choix == 6:  # Factorielle
