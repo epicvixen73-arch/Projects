@@ -246,14 +246,23 @@ namespace Test_App
                         {
                             if (Saisir("Ton guess: ", out int guess, randomMax))
                             {
-                                if (guess == valueToGuess - 1 || guess == valueToGuess || guess == valueToGuess + 1)
+                                int ecart = Math.Abs(valueToGuess - guess);
+                                if (ecart <= 1)
                                 {
                                     hasWon = true;
+                                    Console.ForegroundColor = ConsoleColor.Green;
                                     Console.WriteLine("Tu as gagné !");
+                                    Console.ResetColor();
                                 }
                                 else
                                 {
-                                    Console.WriteLine(valueToGuess > guess ? "La valeur est supérieur" : "La valeur est inférieur");
+                                    // Indication de chaleur selon l'écart
+                                    string chaleur = ecart < 2 ? "BRÛLANT !" : ecart < 5 ? "Chaud" : ecart < 10 ? "Tiède" : "Froid";
+                                    ConsoleColor couleur = ecart < 2 ? ConsoleColor.Red : ecart < 5 ? ConsoleColor.Yellow : ecart < 10 ? ConsoleColor.DarkYellow : ConsoleColor.Blue;
+                                    string direction = valueToGuess > guess ? "supérieure" : "inférieure";
+                                    Console.ForegroundColor = couleur;
+                                    Console.WriteLine($"{chaleur} - La valeur est {direction}");
+                                    Console.ResetColor();
                                 }
                             }
                             else
@@ -265,7 +274,18 @@ namespace Test_App
                             Console.WriteLine(nbGuess + " / 5 essai(s) restant(s). ");
                         }
 
-                        Console.WriteLine("Fin du jeu, merci d'y avoir joué ! La valeur était : " + valueToGuess);
+                        if (hasWon)
+                        {
+                            Console.ForegroundColor = ConsoleColor.Green;
+                            Console.WriteLine("Fin du jeu, merci d'y avoir joué ! Vous avez gagné ! La valeur était : " + valueToGuess);
+                            Console.ResetColor();
+                        }
+                        else
+                        {
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.WriteLine("Fin du jeu, merci d'y avoir joué ! Vous avez perdu. La valeur était : " + valueToGuess);
+                            Console.ResetColor();
+                        }
                         break;
                     case 3:
                         //Quit
