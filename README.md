@@ -18,7 +18,7 @@ Here you'll find tools I built to automate, calculate, and customize my setup.
 An interactive **Python 3** calculator covering math and physics formulas at the 10th grade level.  
 Hierarchical menus, calculation history, input validation, 33+ available formulas.  
 - [ ] Main file: [`FinalV2.py`](https://github.com/epicvixen73-arch/Projects/blob/main/Calculatrice/FinalV2.py)
-- [ ] Reafctord file: [`Calc.py`](https://github.com/epicvixen73-arch/Projects/blob/main/Calculatrice/Calc.py)
+- [ ] Refactored file: [`Calc.py`](https://github.com/epicvixen73-arch/Projects/blob/main/Calculatrice/Calc.py)
 
 ---
 
