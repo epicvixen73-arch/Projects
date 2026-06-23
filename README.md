@@ -5,7 +5,7 @@ Here you'll find tools I built to automate, calculate, and customize my setup.
 
 ---
 - [1st Project -   Math & Physics Calculator (PC)](https://github.com/epicvixen73-arch/Projects/tree/main#1--math--physics-calculator-pc)
-- [2nd Project -  Calculatrice Math_Physique-(Refactored)]()
+- [2nd Project -  Calculatrice Math_Physique-(Refactored)](https://github.com/epicvixen73-arch/Projects/blob/main/README.md#2---calculatrice-math_physique-refactored)
 - [3rd Project -   NumWorks Calculator](https://github.com/epicvixen73-arch/Projects/tree/main#3--numworks-calculator)
 - [4th Project -   Spicetify Setup on Windows & Linux](https://github.com/epicvixen73-arch/Projects/tree/main#4--spicetify-setup-on-windows--linux)
 - [5th Project -   Calculator in C#](https://github.com/epicvixen73-arch/Projects/blob/main/README.md#5---calculator-in-c)
