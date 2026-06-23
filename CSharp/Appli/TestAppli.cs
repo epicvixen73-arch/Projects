@@ -118,9 +118,10 @@ namespace Test_App
         {
             public override float Fonction(float a)
             {
+                if (a < 0)
+                    return float.NaN;
                 return (float)Math.Sqrt(a);
             }
-
             public override string GetName()
             {
                 return "Racine Carrée";
@@ -138,13 +139,14 @@ namespace Test_App
                 return "Valeur Absolue";
             }
         }
-
         static void Main(string[] args)
         {
             while (true)
             {
-                if (!Saisir("===  Test_App  === \n1: Calculatrice \n2: Juste Prix \n3: Quitter \nChoix: ", out int ActionChoice, 3))
+                //Interface de base
+                if (!Saisir("===  Test_App  === \n1: Calculatrice \n2: Juste Prix \n3: Quitter \nChoix: " , out int ActionChoice, 3))
                 {
+                    //"Choix" sera un bouton input et le reste des propositions seront soit un log si TUI ou juste component si UI 
                     continue;
                 }
                     
@@ -265,7 +267,6 @@ namespace Test_App
 
                         Console.WriteLine("Fin du jeu, merci d'y avoir joué ! La valeur était : " + valueToGuess);
                         break;
-
                     case 3:
                         //Quit
                         return;
@@ -287,7 +288,6 @@ namespace Test_App
                 return false;
             }
         }
-
         static bool Saisir(string message, out float userChoice, float borne = float.MaxValue)
         {
             Console.Write("\n" + message);
@@ -302,7 +302,6 @@ namespace Test_App
                 return false;
             }
         }
-
         static bool IsInBorne(float choix, float borne)
         {
             if (choix < 1 || choix > borne)
@@ -310,7 +309,6 @@ namespace Test_App
                 Console.WriteLine("Choix invalide !");
                 return false;
             }
-
             return true;
         }
     }
