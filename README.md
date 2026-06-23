@@ -52,6 +52,8 @@ An **interactive console calculator** with object-oriented architecture using ab
 
 **Architecture** — Abstract classes `Operation` and `Fonctions` with polymorphic implementations, overloaded input validation in 2 versions (`int`, `float`)
 
+- [ ] Main file: [`calculatrice.cs`](https://github.com/epicvixen73-arch/Projects/blob/main/CSharp/Calculatrice/calculatrice.cs)
+
 ---
 
 ### 5 - [Minigame in C#](https://github.com/epicvixen73-arch/Projects/blob/main/CSharp/Minigame/Minigame_Juste_Prix.md)
@@ -62,6 +64,8 @@ A **simple guessing game** — Guess a number between 0 and 50 in 5 attempts.
 **Validation** — Robust error handling with retry on invalid input
 
 **Key points** — Random generation with `Random.Next()`, attempt counter, display of the secret number at the end of the game
+
+- [ ] Main file: [`Minigame_Juste-Prix.cs`](https://github.com/epicvixen73-arch/Projects/blob/main/CSharp/Minigame/Minigame%20%22Juste_prix%22.cs)
 
 ---
 
@@ -77,6 +81,8 @@ An **integrated application** that combines the two previous projects with a **c
 **Architecture** — Reuses the abstract classes (`Operation`, `Fonctions`), overloaded validation methods (`Saisir()`), and the minigame logic in an optional switch
 
 **Concepts demonstrated** — Multi-level polymorphism, state management with flags, nested flow control, code reusability
+
+- [ ] Main file: [`Test_Appli.cs`](https://github.com/epicvixen73-arch/Projects/blob/main/CSharp/Appli/TestAppli.cs)
 
 ## Technologies Used
 
