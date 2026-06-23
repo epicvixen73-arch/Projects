@@ -139,12 +139,72 @@ namespace Test_App
                 return "Valeur Absolue";
             }
         }
+        
+
         static void Main(string[] args)
         {
+            string asciiApp = @"
+  /$$$$$$                      /$$ /$$                       /$$     /$$                    
+ /$$__  $$                    | $$|__/                      | $$    |__/                    
+| $$  \ $$  /$$$$$$   /$$$$$$ | $$ /$$  /$$$$$$$  /$$$$$$  /$$$$$$   /$$  /$$$$$$  /$$$$$$$ 
+| $$$$$$$$ /$$__  $$ /$$__  $$| $$| $$ /$$_____/ |____  $$|_  $$_/  | $$ /$$__  $$| $$__  $$
+| $$__  $$| $$  \ $$| $$  \ $$| $$| $$| $$        /$$$$$$$  | $$    | $$| $$  \ $$| $$  \ $$
+| $$  | $$| $$  | $$| $$  | $$| $$| $$| $$       /$$__  $$  | $$ /$$| $$| $$  | $$| $$  | $$
+| $$  | $$| $$$$$$$/| $$$$$$$/| $$| $$|  $$$$$$$|  $$$$$$$  |  $$$$/| $$|  $$$$$$/| $$  | $$
+|__/  |__/| $$____/ | $$____/ |__/|__/ \_______/ \_______/   \___/  |__/ \______/ |__/  |__/
+          | $$      | $$                                                                    
+          | $$      | $$                                                                    
+          |__/      |__/                                                                    ";
+            string asciiCalc = @"
+  /$$$$$$            /$$                     /$$             /$$               /$$                              
+ /$$__  $$          | $$                    | $$            | $$              |__/                              
+| $$  \__/  /$$$$$$ | $$  /$$$$$$$ /$$   /$$| $$  /$$$$$$  /$$$$$$    /$$$$$$  /$$  /$$$$$$$  /$$$$$$$  /$$$$$$ 
+| $$       |____  $$| $$ /$$_____/| $$  | $$| $$ |____  $$|_  $$_/   /$$__  $$| $$ /$$_____/ /$$_____/ /$$__  $$
+| $$        /$$$$$$$| $$| $$      | $$  | $$| $$  /$$$$$$$  | $$    | $$  \__/| $$| $$      | $$      | $$$$$$$$
+| $$    $$ /$$__  $$| $$| $$      | $$  | $$| $$ /$$__  $$  | $$ /$$| $$      | $$| $$      | $$      | $$_____/
+|  $$$$$$/|  $$$$$$$| $$|  $$$$$$$|  $$$$$$/| $$|  $$$$$$$  |  $$$$/| $$      | $$|  $$$$$$$|  $$$$$$$|  $$$$$$$
+ \______/  \_______/|__/ \_______/ \______/ |__/ \_______/   \___/  |__/      |__/ \_______/ \_______/ \_______/
+                                                                                                                
+                                                                                                                
+                                                                                                                ";
+            string asciiJeu = @"
+    /$$$$$                       /$$                       /$$$$$$$           /$$          
+   |__  $$                      | $$                      | $$__  $$         |__/          
+      | $$ /$$   /$$  /$$$$$$$ /$$$$$$    /$$$$$$         | $$  \ $$ /$$$$$$  /$$ /$$   /$$
+      | $$| $$  | $$ /$$_____/|_  $$_/   /$$__  $$ /$$$$$$| $$$$$$$//$$__  $$| $$|  $$ /$$/
+ /$$  | $$| $$  | $$|  $$$$$$   | $$    | $$$$$$$$|______/| $$____/| $$  \__/| $$ \  $$$$/ 
+| $$  | $$| $$  | $$ \____  $$  | $$ /$$| $$_____/        | $$     | $$      | $$  >$$  $$ 
+|  $$$$$$/|  $$$$$$/ /$$$$$$$/  |  $$$$/|  $$$$$$$        | $$     | $$      | $$ /$$/\  $$
+ \______/  \______/ |_______/    \___/   \_______/        |__/     |__/      |__/|__/  \__/
+                                                                                           
+";
+            string asciiMeteo = @"
+ /$$      /$$             /$$                        
+| $$$    /$$$            | $$                        
+| $$$$  /$$$$  /$$$$$$  /$$$$$$    /$$$$$$   /$$$$$$ 
+| $$ $$/$$ $$ /$$__  $$|_  $$_/   /$$__  $$ /$$__  $$
+| $$  $$$| $$| $$$$$$$$  | $$    | $$$$$$$$| $$  \ $$
+| $$\  $ | $$| $$_____/  | $$ /$$| $$_____/| $$  | $$
+| $$ \/  | $$|  $$$$$$$  |  $$$$/|  $$$$$$$|  $$$$$$/
+|__/     |__/ \_______/   \___/   \_______/ \______/ 
+                                                     
+";
+            string asciiExit = @"
+ /$$$$$$$$           /$$   /$$    
+| $$_____/          |__/  | $$    
+| $$       /$$   /$$ /$$ /$$$$$$  
+| $$$$$   |  $$ /$$/| $$|_  $$_/  
+| $$__/    \  $$$$/ | $$  | $$    
+| $$        >$$  $$ | $$  | $$ /$$
+| $$$$$$$$ /$$/\  $$| $$  |  $$$$/
+|________/|__/  \__/|__/   \___/  
+                                  
+";
+            PrintBanner(asciiApp, ConsoleColor.Red);
             while (true)
             {
                 //Interface de base
-                if (!Saisir("===  Test_App  === \n1: Calculatrice \n2: Juste Prix \n3: Quitter \nChoix: " , out int ActionChoice, 3))
+                if (!Saisir("===  Test_App  === \n1: Calculatrice \n2: Juste Prix \n3: Convertisseur °C/°F\n4: Quitter \nChoix: " , out int ActionChoice, 4))
                 {
                     //"Choix" sera un bouton input et le reste des propositions seront soit un log si TUI ou juste component si UI 
                     continue;
@@ -154,6 +214,7 @@ namespace Test_App
                 {
                     case 1:
                         //Calculatrice
+                        PrintBanner(asciiCalc, ConsoleColor.Cyan);
                         bool quitCalc = false;
                         List<Operation> operations = new List<Operation>();
                         operations.Add(new Addition());
@@ -236,6 +297,7 @@ namespace Test_App
                         break;
                     case 2:
                         //Juste Prix
+                        PrintBanner(asciiJeu, ConsoleColor.Magenta);
                         Random random = new Random();
                         int nbGuess = 5;
                         int randomMax = 51;
@@ -288,7 +350,37 @@ namespace Test_App
                         }
                         break;
                     case 3:
+                        // Convertisseur °C <-> °F
+                        PrintBanner(asciiMeteo, ConsoleColor.Green);
+                        Console.WriteLine("------Convertisseur------");
+                        Console.WriteLine("1: °C -> °F");
+                        Console.WriteLine("2: °F -> °C");
+                        if (!Saisir("Choix: ", out int convChoice, 2))
+                        {
+                            break;
+                        }
+                        Console.Write("Température: ");
+                        string tempS = Console.ReadLine();
+                        if (!float.TryParse(tempS, out float tempVal))
+                        {
+                            Console.WriteLine("Valeur invalide.");
+                            break;
+                        }
+
+                        if (convChoice == 1)
+                        {
+                            float resultF = tempVal * 9f / 5f + 32f;
+                            Console.WriteLine($"{tempVal} °C = {resultF} °F");
+                        }
+                        else
+                        {
+                            float resultC = (tempVal - 32f) * 5f / 9f;
+                            Console.WriteLine($"{tempVal} °F = {resultC} °C");
+                        }
+                        break;
+                    case 4:
                         //Quit
+                        PrintBanner(asciiExit, ConsoleColor.DarkGray);
                         return;
                 }
             }
@@ -330,6 +422,12 @@ namespace Test_App
                 return false;
             }
             return true;
+        }
+        static void PrintBanner(string banner, ConsoleColor color = ConsoleColor.Cyan)
+        {
+            Console.ForegroundColor = color;
+            Console.WriteLine(banner);
+            Console.ResetColor();
         }
     }
 }
