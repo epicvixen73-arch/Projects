@@ -24,7 +24,7 @@ Hierarchical menus, calculation history, input validation, 33+ available formula
 ### 2 - [NumWorks Calculator](https://github.com/epicvixen73-arch/Projects/blob/main/Calculatrice/Numworks%20Calculator.md)
 The same calculator, adapted for the **NumWorks N0110/N0120** in **MicroPython**.  
 35 formulas, compact menus, built-in physical constants.  
-→ Main file: [`calculatrice_numworks.py`](https://github.com/epicvixen73-arch/Projects/blob/main/Calculatrice/FinalV2.py)
+→ Main file: [`calculatrice_numworks.py`](https://github.com/epicvixen73-arch/Projects/blob/main/Calculatrice/calculatrice_numworks(1).py)
 
 ---
 
