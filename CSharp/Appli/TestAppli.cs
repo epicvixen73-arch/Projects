@@ -214,20 +214,24 @@ namespace Test_App
                         //Calculatrice
                         PrintBanner(asciiCalc, ConsoleColor.Cyan);
                         bool quitCalc = false;
-                        List<Operation> operations = new List<Operation>();
-                        operations.Add(new Addition());
-                        operations.Add(new Soustraction());
-                        operations.Add(new Multiplication());
-                        operations.Add(new Division());
-                        operations.Add(new Reste());
+                        List<Operation> operations = new List<Operation>
+                        {
+                            new Addition(),
+                            new Soustraction(),
+                            new Multiplication(),
+                            new Division(),
+                            new Reste()
+                        };
 
 
-                        List<Fonctions> fonctions = new List<Fonctions>();
-                        fonctions.Add(new Carre());
-                        fonctions.Add(new Cube());
-                        fonctions.Add(new Inverse());
-                        fonctions.Add(new Racine());
-                        fonctions.Add(new Absolue());
+                        List<Fonctions> fonctions = new List<Fonctions>
+                        {
+                            new Carre(),
+                            new Cube(),
+                            new Inverse(),
+                            new Racine(),
+                            new Absolue()
+                        };
 
 
                         while (!quitCalc)
