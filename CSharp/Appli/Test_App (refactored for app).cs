@@ -469,10 +469,10 @@ $$ |  $$ |$$ |$$$$$$$  |  \$$$$  |\$$$$$$  |$$ |      $$ |\$$$$$$$ |\$$$$$$  |\$
             Console.WriteLine("1: °C -> °F");
             Console.WriteLine("2: °F -> °C");
             if (!Saisir("Choix: ", out int convChoice, 2))
-                break;
+                return;
 
             if (!SaisirAnyFloat("Température: ", out float tempVal))
-                break;
+                return;
 
             if (convChoice == 1)
             {
