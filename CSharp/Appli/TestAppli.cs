@@ -144,6 +144,7 @@ namespace Test_App
 
         static void Main(string[] args)
         {
+            string message = "\nAppuyez sur une touche pour revenir au menu principal...";
             string asciiApp = @"
   /$$$$$$                      /$$ /$$                       /$$     /$$                    
  /$$__  $$                    | $$|__/                      | $$    |__/                    
@@ -203,15 +204,10 @@ namespace Test_App
 ";
             while (true)
             {
-                //Interface de base
                 Console.Clear();
                 PrintBanner(asciiApp, ConsoleColor.Red);
                 if (!Saisir("===  Test_App  === \n1: Calculatrice \n2: Juste Prix \n3: Convertisseur °C/°F\n4: Quitter \nChoix: " , out int ActionChoice, 4))
-                {
-                    //"Choix" sera un bouton input et le reste des propositions seront soit un log si TUI ou juste component si UI 
                     continue;
-                }
-                    
                 switch (ActionChoice)
                 {
                     case 1:
@@ -238,7 +234,7 @@ namespace Test_App
                         {
                             global::System.Console.WriteLine("#######################");
                             global::System.Console.WriteLine();
-                            string message = "-----[1]: Opérateur---- \n-----[2]: Puissances--- \n-----[3]: Fonctions---- \n-----[4]: Quit--------- \nChoix: ";
+                            message = "-----[1]: Opérateur---- \n-----[2]: Puissances--- \n-----[3]: Fonctions---- \n-----[4]: Quit--------- \nChoix: ";
                             if (!Saisir(message, out int choix, 4))
                                 continue;
                             switch (choix)
@@ -292,6 +288,7 @@ namespace Test_App
                                     break;
                             }
                         }
+                        PauseDuUser(message);
                         break;
                     case 2:
                         //Juste Prix
@@ -302,6 +299,7 @@ namespace Test_App
                         bool hasWon = false;
 
                         int valueToGuess = random.Next(0, randomMax);
+                        Console.WriteLine($"Nombre à trouver entre 0 et {randomMax - 1}");
                         while (nbGuess > 0 && !hasWon)
                         {
                             if (Saisir("Ton guess: ", out int guess, randomMax))
@@ -316,7 +314,6 @@ namespace Test_App
                                 }
                                 else
                                 {
-                                    // Indication de chaleur selon l'écart
                                     string chaleur = ecart < 2 ? "BRÛLANT !" : ecart < 5 ? "Chaud" : ecart < 10 ? "Tiède" : "Froid";
                                     ConsoleColor couleur = ecart < 2 ? ConsoleColor.Red : ecart < 5 ? ConsoleColor.Yellow : ecart < 10 ? ConsoleColor.DarkYellow : ConsoleColor.Blue;
                                     string direction = valueToGuess > guess ? "supérieure" : "inférieure";
@@ -346,6 +343,7 @@ namespace Test_App
                             Console.WriteLine("Fin du jeu, merci d'y avoir joué ! Vous avez perdu. La valeur était : " + valueToGuess);
                             Console.ResetColor();
                         }
+                        PauseDuUser(message);
                         break;
                     case 3:
                         // Convertisseur °C <-> °F
@@ -368,6 +366,7 @@ namespace Test_App
                             float resultC = (tempVal - 32f) * 5f / 9f;
                             Console.WriteLine($"{tempVal} °F = {resultC} °C");
                         }
+                        PauseDuUser(message);
                         break;
                     case 4:
                         //Quit
@@ -408,6 +407,18 @@ namespace Test_App
                 return false;
             }
         }
+        static bool SaisirAnyFloat(string message, out float userChoice)
+        {
+            Console.Write("\n" + message);
+            string saisi = Console.ReadLine()?.Trim().Replace(',', '.');
+            if (float.TryParse(saisi, NumberStyles.Float, CultureInfo.InvariantCulture, out userChoice))
+            {
+                return true;
+            }
+            Console.WriteLine("Invalide, reboot...");
+            userChoice = 0f;
+            return false;
+        }
         static bool IsInBorne(float choix, float borne)
         {
             if (choix < 1 || choix > borne)
@@ -424,17 +435,10 @@ namespace Test_App
             Console.WriteLine(banner);
             Console.ResetColor();
         }
-        static bool SaisirAnyFloat(string message, out float userChoice)
+        static void PauseDuUser(string message)
         {
-            Console.Write("\n" + message);
-            string saisi = Console.ReadLine();
-            if (float.TryParse(saisi, out userChoice))
-            {
-                return true;
-            }
-            Console.WriteLine("Invalide, reboot...");
-            userChoice = 0f;
-            return false;
+            Console.WriteLine(message);
+            Console.ReadKey(true);
         }
     }
 }
