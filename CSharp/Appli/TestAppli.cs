@@ -258,7 +258,9 @@ namespace Test_App
                                     Console.Write("b: ");
                                     float b = Convert.ToSingle(Console.ReadLine());
                                     Console.WriteLine();
-                                    Console.WriteLine("Result: " + operations[choix_operateur - 1].Calcul(a_ope, b));
+                                    float resultatOp = operations[choix_operateur - 1].Calcul(a_ope, b);
+                                    Console.WriteLine("Result: " + resultatOp);
+                                    historique.Add($"Calculatrice [{operations[choix_operateur - 1].GetName()}] : {a_ope} , {b} = {resultatOp}");
                                     break;
                                 case 2:
                                     Console.WriteLine("-------Puissances------");
@@ -267,7 +269,9 @@ namespace Test_App
                                     if (!Saisir("n: ", out int n))
                                         continue;
                                     Console.WriteLine();
-                                    Console.WriteLine($"Result de {a}^{n}: (float)Math.Pow(a, n)");
+                                    float resultatPow = (float)Math.Pow(a, n);
+                                    Console.WriteLine($"Result de {a}^{n}: {resultatPow}");
+                                    historique.Add($"Puissance : {a}^{n} = {resultatPow}");
                                     break;
                                 case 3:
                                     message = "-------Fonctions-------";
@@ -282,8 +286,10 @@ namespace Test_App
                                     Console.WriteLine("-----------------------");
                                     if (!Saisir("x: ", out float x))
                                         continue;
-                                    Console.WriteLine();
-                                    Console.WriteLine("Result: " + fonctions[choix_fonctions - 1].Fonction(x));
+                                    Console.WriteLine(); 
+                                    float resultatFn = fonctions[choix_fonctions - 1].Fonction(x);
+                                    Console.WriteLine("Result: " + resultatFn);
+                                    historique.Add($"Fonction [{fonctions[choix_fonctions - 1].GetName()}] de {x} = {resultatFn}");
                                     break;
                                 case 4:
                                     Console.WriteLine("Au revoir !");
@@ -346,6 +352,7 @@ namespace Test_App
                             Console.WriteLine("Fin du jeu, merci d'y avoir joué ! Vous avez perdu. La valeur était : " + valueToGuess);
                             Console.ResetColor();
                         }
+                        historique.Add(hasWon ? $"Juste Prix : gagné en {5 - nbGuess} essai(s) (valeur = {valueToGuess})" : $"Juste Prix : perdu (valeur = {valueToGuess})");
                         PauseDuUser("\nAppuyez sur une touche pour revenir au menu principal...");
                         break;
                     case 3:
@@ -363,11 +370,13 @@ namespace Test_App
                         {
                             float resultF = tempVal * 9f / 5f + 32f;
                             Console.WriteLine($"{tempVal} °C = {resultF} °F");
+                            historique.Add($"Conversion : {tempVal}°C = {resultF}°F");
                         }
                         else
                         {
                             float resultC = (tempVal - 32f) * 5f / 9f;
                             Console.WriteLine($"{tempVal} °F = {resultC} °C");
+                            historique.Add($"Conversion : {tempVal}°F = {resultC}°C");
                         }
                         PauseDuUser("\nAppuyez sur une touche pour revenir au menu principal...");
                         break;
@@ -375,6 +384,7 @@ namespace Test_App
                         //Quit
 
                         //Rajouter le print de l'historique entier après ce commentaire mais au dessus du clear.
+                        ShowHist();
                         Console.Clear();
                         PrintBanner(asciiExit, ConsoleColor.DarkGray);
                         return;
@@ -424,9 +434,8 @@ namespace Test_App
         }
         static bool IsInBorne(float choix, float borne)
         {
-            if (choix < 1 || choix > borne)
+            if (choix < 1 || choix > borne) Console.WriteLine("Choix invalide !");
             {
-                Console.WriteLine("Choix invalide !");
                 return false;
             }
             return true;
@@ -442,6 +451,21 @@ namespace Test_App
         {
             Console.WriteLine(message);
             Console.ReadKey(true);
+        }
+        static readonly List<string> historique = new List<string>();
+        static void ShowHist()
+        {
+            Console.WriteLine("\n=== Historique de la session ===");
+            if (historique.Count == 0)
+            {
+                Console.WriteLine("Aucune action enregistrée.");
+            }
+            else
+            {
+                for (int i = 0; i < historique.Count; i++)
+                    Console.WriteLine($"{i + 1}. {historique[i]}");
+            }
+            PauseDuUser("\nAppuyez sur une touche pour fermer...");
         }
     }
 }
