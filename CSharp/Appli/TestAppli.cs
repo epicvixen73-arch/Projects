@@ -140,8 +140,6 @@ namespace Test_App
                 return "Valeur Absolue";
             }
         }
-        
-
         static void Main(string[] args)
         {
             string message = "\nAppuyez sur une touche pour revenir au menu principal...";
@@ -202,6 +200,7 @@ namespace Test_App
 |________/|__/  \__/|__/   \___/  
                                   
 ";
+
             while (true)
             {
                 Console.Clear();
@@ -268,7 +267,7 @@ namespace Test_App
                                     if (!Saisir("n: ", out int n))
                                         continue;
                                     Console.WriteLine();
-                                    Console.WriteLine("Result de " + a + "^" + n + " : " + (float)Math.Pow(a, n));
+                                    Console.WriteLine($"Result de {a}^{n}: (float)Math.Pow(a, n)");
                                     break;
                                 case 3:
                                     message = "-------Fonctions-------";
@@ -292,7 +291,7 @@ namespace Test_App
                                     break;
                             }
                         }
-                        PauseDuUser(message);
+                        PauseDuUser("\nAppuyez sur une touche pour revenir au menu principal...");
                         break;
                     case 2:
                         //Juste Prix
@@ -347,7 +346,7 @@ namespace Test_App
                             Console.WriteLine("Fin du jeu, merci d'y avoir joué ! Vous avez perdu. La valeur était : " + valueToGuess);
                             Console.ResetColor();
                         }
-                        PauseDuUser(message);
+                        PauseDuUser("\nAppuyez sur une touche pour revenir au menu principal...");
                         break;
                     case 3:
                         // Convertisseur °C <-> °F
@@ -370,12 +369,12 @@ namespace Test_App
                             float resultC = (tempVal - 32f) * 5f / 9f;
                             Console.WriteLine($"{tempVal} °F = {resultC} °C");
                         }
-                        PauseDuUser(message);
+                        PauseDuUser("\nAppuyez sur une touche pour revenir au menu principal...");
                         break;
                     case 4:
                         //Quit
 
-                        //Rajouterv le print de l'historiqueb après ce commentaire mais au dessus du clear.
+                        //Rajouter le print de l'historique entier après ce commentaire mais au dessus du clear.
                         Console.Clear();
                         PrintBanner(asciiExit, ConsoleColor.DarkGray);
                         return;
