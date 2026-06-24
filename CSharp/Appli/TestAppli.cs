@@ -200,7 +200,19 @@ namespace Test_App
 |________/|__/  \__/|__/   \___/  
                                   
 ";
-
+            string asciiHist = @"
+$$\   $$\ $$\             $$\                         $$\                               
+$$ |  $$ |\__|            $$ |                        \__|                              
+$$ |  $$ |$$\  $$$$$$$\ $$$$$$\    $$$$$$\   $$$$$$\  $$\  $$$$$$\  $$\   $$\  $$$$$$\  
+$$$$$$$$ |$$ |$$  _____|\_$$  _|  $$  __$$\ $$  __$$\ $$ |$$  __$$\ $$ |  $$ |$$  __$$\ 
+$$  __$$ |$$ |\$$$$$$\    $$ |    $$ /  $$ |$$ |  \__|$$ |$$ /  $$ |$$ |  $$ |$$$$$$$$ |
+$$ |  $$ |$$ | \____$$\   $$ |$$\ $$ |  $$ |$$ |      $$ |$$ |  $$ |$$ |  $$ |$$   ____|
+$$ |  $$ |$$ |$$$$$$$  |  \$$$$  |\$$$$$$  |$$ |      $$ |\$$$$$$$ |\$$$$$$  |\$$$$$$$\ 
+\__|  \__|\__|\_______/    \____/  \______/ \__|      \__| \____$$ | \______/  \_______|
+                                                                $$ |                    
+                                                                $$ |                    
+                                                                \__|                    
+";
             while (true)
             {
                 Console.Clear();
@@ -253,10 +265,10 @@ namespace Test_App
                                     if (!Saisir(message, out int choix_operateur, operations.Count))
                                         continue;
                                     Console.WriteLine("-----------------------");
-                                    Console.Write("a: ");
-                                    float a_ope = Convert.ToSingle(Console.ReadLine());
-                                    Console.Write("b: ");
-                                    float b = Convert.ToSingle(Console.ReadLine());
+                                    if (!SaisirAnyFloat("a: ", out float a_ope))
+                                        continue;
+                                    if (!SaisirAnyFloat("b: ", out float b))
+                                        continue;
                                     Console.WriteLine();
                                     float resultatOp = operations[choix_operateur - 1].Calcul(a_ope, b);
                                     Console.WriteLine("Result: " + resultatOp);
@@ -384,6 +396,8 @@ namespace Test_App
                         //Quit
 
                         //Rajouter le print de l'historique entier après ce commentaire mais au dessus du clear.
+                        Console.Clear();
+                        PrintBanner(asciiHist, ConsoleColor.Yellow);
                         ShowHist();
                         Console.Clear();
                         PrintBanner(asciiExit, ConsoleColor.DarkGray);
@@ -434,8 +448,9 @@ namespace Test_App
         }
         static bool IsInBorne(float choix, float borne)
         {
-            if (choix < 1 || choix > borne) Console.WriteLine("Choix invalide !");
+            if (choix < 1 || choix > borne) 
             {
+                Console.WriteLine("Choix invalide !");
                 return false;
             }
             return true;
@@ -455,7 +470,6 @@ namespace Test_App
         static readonly List<string> historique = new List<string>();
         static void ShowHist()
         {
-            Console.WriteLine("\n=== Historique de la session ===");
             if (historique.Count == 0)
             {
                 Console.WriteLine("Aucune action enregistrée.");
