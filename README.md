@@ -4,9 +4,9 @@ Welcome to my personal projects repository!
 Here you'll find tools I built to automate, calculate, and customize my setup.
 
 ---
-- [1st Project -   Math & Physics Calculator (PC)](https://github.com/epicvixen73-arch/Projects/tree/main#1--math--physics-calculator-pc)
+- [1st Project -   Math & Physics Calculator (PC)](https://github.com/epicvixen73-arch/Projects/tree/main#1---math--physics-calculator-pc)
 - [2nd Project -  Calculatrice Math_Physique-(Refactored)](https://github.com/epicvixen73-arch/Projects/blob/main/README.md#2---calculatrice-math_physique-refactored)
-- [3rd Project -   NumWorks Calculator](https://github.com/epicvixen73-arch/Projects/tree/main#3--numworks-calculator)
+- [3rd Project -   NumWorks Calculator](https://github.com/epicvixen73-arch/Projects/tree/main#3---numworks-calculator)
 - [4th Project -   Spicetify Setup on Windows & Linux](https://github.com/epicvixen73-arch/Projects/tree/main#4--spicetify-setup-on-windows--linux)
 - [5th Project -   Calculator in C#](https://github.com/epicvixen73-arch/Projects/blob/main/README.md#5---calculator-in-c)
 - [6th Project -   Minigame in C#](https://github.com/epicvixen73-arch/Projects/blob/main/README.md#6---minigame-in-c)
@@ -33,7 +33,7 @@ Refactored into a fully data-driven menu architecture (`Menu`/`Action` tree) —
 ### 3 - [NumWorks Calculator](https://github.com/epicvixen73-arch/Projects/blob/main/Calculatrice/Numworks/Numworks%20Calculator.md)
 The same calculator, adapted for the **NumWorks N0110/N0120** in **MicroPython**.  
 35 formulas, compact menus, built-in physical constants.  
-- [ ] Main file: [`calculatrice_numworks.py`](https://github.com/epicvixen73-arch/Projects/blob/main/Calculatrice/calculatrice_numworks.py)
+- [ ] Main file: [`calculatrice_numworks.py`](https://github.com/epicvixen73-arch/Projects/blob/main/Calculatrice/Numworks/calculatrice_numworks.py)
 
 ---
 
