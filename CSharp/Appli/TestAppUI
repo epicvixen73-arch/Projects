@@ -1,0 +1,788 @@
+using Avalonia;
+using Avalonia.Controls;
+using Avalonia.Controls.ApplicationLifetimes;
+using Avalonia.Controls.Primitives;
+using Avalonia.Input;
+using Avalonia.Layout;
+using Avalonia.Markup.Xaml;
+using Avalonia.Media;
+using Avalonia.Threading;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Globalization;
+using Tmds.DBus.Protocol;
+
+namespace TestAppUI
+{
+    // ========================================================================
+    // DATA MODELS
+    // ========================================================================
+    public class CalculationHistory
+    {
+        public string Timestamp { get; set; } = string.Empty;
+        public string Module { get; set; } = string.Empty;
+        public string Operation { get; set; } = string.Empty;
+        public string Result { get; set; } = string.Empty;
+    }
+
+    // ========================================================================
+    // MAIN WINDOW
+    // ========================================================================
+    public class MainWindow : Window
+    {
+        private readonly Grid _rootGrid;
+        private readonly StackPanel _sidebar;
+        private readonly ContentControl _contentArea;
+        private readonly Control _historyPanel;
+        private ListBox _historyListBox;
+        private readonly ObservableCollection<CalculationHistory> _history;
+
+        // Current module state
+        private Control? _currentModule;
+
+        public MainWindow()
+        {
+            InitializeTheme();
+            _history = new ObservableCollection<CalculationHistory>();
+
+            // Root layout: Sidebar | Content | History
+            _rootGrid = new Grid
+            {
+                ColumnDefinitions = new ColumnDefinitions("240,*,300"),
+                Background = new SolidColorBrush(Color.Parse("#f8f9fa"))
+            };
+
+            // ===== SIDEBAR =====
+            _sidebar = CreateSidebar();
+            Grid.SetColumn(_sidebar, 0);
+            _rootGrid.Children.Add(_sidebar);
+
+            // ===== CONTENT AREA =====
+            _contentArea = new ContentControl
+            {
+                Background = new SolidColorBrush(Colors.White),
+                Padding = new Thickness(40)
+            };
+            Grid.SetColumn(_contentArea, 1);
+            _rootGrid.Children.Add(_contentArea);
+
+            // ===== HISTORY PANEL (DOCKABLE) =====
+            _historyPanel = CreateHistoryPanel();
+            Grid.SetColumn(_historyPanel, 2);
+            _rootGrid.Children.Add(_historyPanel);
+
+            // Window config
+            Title = "Test App — Calculatrice & Jeux";
+            Width = 1400;
+            Height = 800;
+            WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            Content = _rootGrid;
+        }
+
+        private void InitializeTheme()
+        {
+            // Couleurs du design
+            // Primary: #2563eb (bleu)
+            // Secondary: #64748b (gris-bleu)
+            // Success: #10b981 (vert)
+            // Accent: #8b5cf6 (violet)
+        }
+
+        private StackPanel CreateSidebar()
+        {
+            var sidebar = new StackPanel
+            {
+                Background = new SolidColorBrush(Color.Parse("#1e293b")),
+                Spacing = 0,
+                Orientation = Orientation.Vertical
+            };
+
+            // Header
+            var headerBorder = new Border
+            {
+                Background = new SolidColorBrush(Color.Parse("#0f172a")),
+                Padding = new Thickness(20, 30, 20, 30),
+                BorderThickness = new Thickness(0, 0, 0, 1),
+                BorderBrush = new SolidColorBrush(Color.Parse("#334155"))
+            };
+
+            var headerText = new TextBlock
+            {
+                Text = "Test App",
+                FontSize = 20,
+                FontWeight = FontWeight.Bold,
+                Foreground = new SolidColorBrush(Colors.White)
+            };
+            headerBorder.Child = headerText;
+            sidebar.Children.Add(headerBorder);
+
+            // Menu items
+            var modules = new (string, Func<Control>)[] {
+                ("📊 Calculatrice", CreateCalculatorModule),
+                ("🎮 Juste Prix", CreateJustePrixModule),
+                ("🌡️ Convertisseur", CreateConverterModule)
+            };
+
+            foreach (var (label, moduleFactory) in modules)
+            {
+                var btn = CreateSidebarButton(label, moduleFactory);
+                sidebar.Children.Add(btn);
+            }
+
+            return sidebar;
+        }
+
+        private Button CreateSidebarButton(string label, Func<Control> moduleFactory)
+        {
+            var btn = new Button
+            {
+                Content = label,
+                Background = new SolidColorBrush(Color.Parse("#1e293b")),
+                Foreground = new SolidColorBrush(Color.Parse("#cbd5e1")),
+                Padding = new Thickness(20, 16, 20, 16),
+                BorderThickness = new Thickness(0),
+                FontSize = 14,
+                HorizontalAlignment = HorizontalAlignment.Stretch,
+                HorizontalContentAlignment = HorizontalAlignment.Left,
+                Cursor = new Cursor(StandardCursorType.Hand)
+            };
+
+            btn.AddHandler(PointerEnteredEvent, (s, e) =>
+            {
+                btn.Background = new SolidColorBrush(Color.Parse("#334155"));
+                btn.Foreground = new SolidColorBrush(Colors.White);
+            });
+
+            btn.AddHandler(PointerExitedEvent, (s, e) =>
+            {
+                btn.Background = new SolidColorBrush(Color.Parse("#1e293b"));
+                btn.Foreground = new SolidColorBrush(Color.Parse("#cbd5e1"));
+            });
+
+            btn.Click += (s, e) =>
+            {
+                _currentModule = moduleFactory();
+                _contentArea.Content = _currentModule;
+            };
+
+            return btn;
+        }
+
+        private Border CreateHistoryPanel()
+        {
+            var panel = new StackPanel
+            {
+                Background = new SolidColorBrush(Color.Parse("#f1f5f9")),
+                Spacing = 0,
+                Orientation = Orientation.Vertical
+            };
+
+            var panelBorder = new Border
+            {
+                Child = panel,
+                BorderThickness = new Thickness(1, 0, 0, 0),
+                BorderBrush = new SolidColorBrush(Color.Parse("#e2e8f0"))
+            };
+
+            // Header
+            var header = new Border
+            {
+                Background = new SolidColorBrush(Color.Parse("#e2e8f0")),
+                Padding = new Thickness(16, 16, 16, 16),
+                BorderThickness = new Thickness(0, 0, 0, 1),
+                BorderBrush = new SolidColorBrush(Color.Parse("#cbd5e1"))
+            };
+
+            var headerText = new TextBlock
+            {
+                Text = "📋 Historique",
+                FontSize = 13,
+                FontWeight = FontWeight.Bold,
+                Foreground = new SolidColorBrush(Color.Parse("#475569"))
+            };
+            header.Child = headerText;
+            panel.Children.Add(header);
+
+            // ListBox
+            _historyListBox = new ListBox
+            {
+                ItemsSource = _history,
+                Background = new SolidColorBrush(Color.Parse("#f1f5f9")),
+                Margin = new Thickness(0)
+            };
+
+            var scrollViewer = new ScrollViewer
+            {
+                Content = _historyListBox
+            };
+            panel.Children.Add(scrollViewer);
+
+            return panelBorder;
+        }
+
+        // ===== MODULE: CALCULATRICE =====
+        private Control CreateCalculatorModule()
+        {
+            var root = new StackPanel
+            {
+                Spacing = 20,
+                Orientation = Orientation.Vertical
+            };
+
+            var title = new TextBlock
+            {
+                Text = "Calculatrice Scientifique",
+                FontSize = 28,
+                FontWeight = FontWeight.Bold,
+                Foreground = new SolidColorBrush(Color.Parse("#1e293b"))
+            };
+            root.Children.Add(title);
+
+            var desc = new TextBlock
+            {
+                Text = "Sélectionnez une opération pour commencer",
+                FontSize = 14,
+                Foreground = new SolidColorBrush(Color.Parse("#64748b")),
+                Margin = new Thickness(0, 0, 0, 20)
+            };
+            root.Children.Add(desc);
+
+            // Menu principal (3 sections)
+            var grid = new Grid
+            {
+                ColumnDefinitions = new ColumnDefinitions("*,*,*"),
+                RowDefinitions = new RowDefinitions("Auto"),
+                ColumnSpacing = 20
+            };
+
+            // Section 1: Opérateurs
+            var opSection = CreateCalculatorSection(
+                "➕ Opérateurs Arithmétiques",
+                new[] { "Addition", "Soustraction", "Multiplication", "Division", "Reste" },
+                (op) => ShowOperationUI(op)
+            );
+            Grid.SetColumn(opSection, 0);
+            grid.Children.Add(opSection);
+
+            // Section 2: Puissances
+            var powerSection = CreateCalculatorSection(
+                "⬆️ Puissances",
+                new[] { "a^n" },
+                (op) => ShowPowerUI()
+            );
+            Grid.SetColumn(powerSection, 1);
+            grid.Children.Add(powerSection);
+
+            // Section 3: Fonctions
+            var funcSection = CreateCalculatorSection(
+                "ƒ Fonctions",
+                new[] { "Carré", "Cube", "Racine", "Valeur Absolue", "Inverse" },
+                (op) => ShowFunctionUI(op)
+            );
+            Grid.SetColumn(funcSection, 2);
+            grid.Children.Add(funcSection);
+
+            root.Children.Add(grid);
+
+            // Résultat (stylisé)
+            var resultBox = CreateResultBox("Résultat en attente...");
+            root.Children.Add(resultBox);
+
+            return root;
+        }
+
+        private Border CreateCalculatorSection(string title, string[] items, Action<string> onSelect)
+        {
+            var section = new StackPanel
+            {
+                Spacing = 12,
+                Orientation = Orientation.Vertical
+            };
+
+            var sectionTitle = new TextBlock
+            {
+                Text = title,
+                FontSize = 14,
+                FontWeight = FontWeight.Bold,
+                Foreground = new SolidColorBrush(Color.Parse("#2563eb")),
+                Margin = new Thickness(0, 0, 0, 8)
+            };
+            section.Children.Add(sectionTitle);
+
+            foreach (var item in items)
+            {
+                var btn = new Button
+                {
+                    Content = item,
+                    Background = new SolidColorBrush(Color.Parse("#f0f4f8")),
+                    Foreground = new SolidColorBrush(Color.Parse("#1e293b")),
+                    Padding = new Thickness(12, 10, 12, 10),
+                    BorderThickness = new Thickness(1),
+                    BorderBrush = new SolidColorBrush(Color.Parse("#e2e8f0")),
+                    FontSize = 12,
+                    HorizontalAlignment = HorizontalAlignment.Stretch,
+                    Cursor = new Cursor(StandardCursorType.Hand)
+                };
+
+                btn.AddHandler(PointerEnteredEvent, (s, e) =>
+                {
+                    btn.Background = new SolidColorBrush(Color.Parse("#dbeafe"));
+                    btn.BorderBrush = new SolidColorBrush(Color.Parse("#2563eb"));
+                });
+
+                btn.AddHandler(PointerExitedEvent, (s, e) =>
+                {
+                    btn.Background = new SolidColorBrush(Color.Parse("#f0f4f8"));
+                    btn.BorderBrush = new SolidColorBrush(Color.Parse("#e2e8f0"));
+                });
+
+                btn.Click += (s, e) => onSelect(item);
+                section.Children.Add(btn);
+            }
+
+            var border = new Border
+            {
+                Child = section,
+                Background = new SolidColorBrush(Colors.White),
+                BorderBrush = new SolidColorBrush(Color.Parse("#e2e8f0")),
+                BorderThickness = new Thickness(1),
+                CornerRadius = new CornerRadius(8),
+                Padding = new Thickness(16)
+            };
+
+            return border;
+        }
+
+        private void ShowOperationUI(string operation)
+        {
+            var dialog = new StackPanel
+            {
+                Spacing = 12,
+                Orientation = Orientation.Vertical
+            };
+
+            var title = new TextBlock
+            {
+                Text = $"Opération: {operation}",
+                FontSize = 16,
+                FontWeight = FontWeight.Bold,
+                Foreground = new SolidColorBrush(Color.Parse("#1e293b"))
+            };
+            dialog.Children.Add(title);
+
+            var aInput = CreateNumericInput("a: ", 0);
+            var bInput = CreateNumericInput("b: ", 0);
+            dialog.Children.Add(aInput);
+            dialog.Children.Add(bInput);
+
+            var calcBtn = new Button
+            {
+                Content = "Calculer",
+                Background = new SolidColorBrush(Color.Parse("#2563eb")),
+                Foreground = new SolidColorBrush(Colors.White),
+                Padding = new Thickness(16, 10, 16, 10),
+                BorderThickness = new Thickness(0),
+                FontSize = 14,
+                CornerRadius = new CornerRadius(4),
+                Cursor = new Cursor(StandardCursorType.Hand)
+            };
+
+            calcBtn.Click += (s, e) =>
+            {
+                double a = GetInputValue(aInput);
+                double b = GetInputValue(bInput);
+                double result = operation switch
+                {
+                    "Addition" => a + b,
+                    "Soustraction" => a - b,
+                    "Multiplication" => a * b,
+                    "Division" => b != 0 ? a / b : 0,
+                    "Reste" => a % b,
+                    _ => 0
+                };
+
+                AddHistory("Calculatrice", operation, $"{a} {GetSymbol(operation)} {b} = {result:F4}");
+                // Update result display here
+            };
+
+            dialog.Children.Add(calcBtn);
+            _contentArea.Content = dialog;
+        }
+
+        private void ShowPowerUI()
+        {
+            var dialog = new StackPanel { Spacing = 12, Orientation = Orientation.Vertical };
+            var title = new TextBlock { Text = "Puissance: a^n", FontSize = 16, FontWeight = FontWeight.Bold, Foreground = new SolidColorBrush(Color.Parse("#1e293b")) };
+            dialog.Children.Add(title);
+
+            var aInput = CreateNumericInput("a: ", 0);
+            var nInput = CreateNumericInput("n: ", 0);
+            dialog.Children.Add(aInput);
+            dialog.Children.Add(nInput);
+
+            var calcBtn = new Button
+            {
+                Content = "Calculer",
+                Background = new SolidColorBrush(Color.Parse("#2563eb")),
+                Foreground = new SolidColorBrush(Colors.White),
+                Padding = new Thickness(16, 10, 16, 10),
+                BorderThickness = new Thickness(0),
+                FontSize = 14,
+                CornerRadius = new CornerRadius(4),
+                Cursor = new Cursor(StandardCursorType.Hand)
+            };
+
+            calcBtn.Click += (s, e) =>
+            {
+                double a = GetInputValue(aInput);
+                double n = GetInputValue(nInput);
+                double result = Math.Pow(a, n);
+                AddHistory("Calculatrice", "Puissance", $"{a}^{n} = {result:F4}");
+            };
+
+            dialog.Children.Add(calcBtn);
+            _contentArea.Content = dialog;
+        }
+
+        private void ShowFunctionUI(string function)
+        {
+            var dialog = new StackPanel { Spacing = 12, Orientation = Orientation.Vertical };
+            var title = new TextBlock { Text = $"Fonction: {function}", FontSize = 16, FontWeight = FontWeight.Bold, Foreground = new SolidColorBrush(Color.Parse("#1e293b")) };
+            dialog.Children.Add(title);
+
+            var xInput = CreateNumericInput("x: ", 0);
+            dialog.Children.Add(xInput);
+
+            var calcBtn = new Button
+            {
+                Content = "Calculer",
+                Background = new SolidColorBrush(Color.Parse("#2563eb")),
+                Foreground = new SolidColorBrush(Colors.White),
+                Padding = new Thickness(16, 10, 16, 10),
+                BorderThickness = new Thickness(0),
+                FontSize = 14,
+                CornerRadius = new CornerRadius(4),
+                Cursor = new Cursor(StandardCursorType.Hand)
+            };
+
+            calcBtn.Click += (s, e) =>
+            {
+                double x = GetInputValue(xInput);
+                double result = function switch
+                {
+                    "Carré" => x * x,
+                    "Cube" => x * x * x,
+                    "Racine" => x >= 0 ? Math.Sqrt(x) : double.NaN,
+                    "Valeur Absolue" => Math.Abs(x),
+                    "Inverse" => x != 0 ? 1 / x : 0,
+                    _ => 0
+                };
+
+                AddHistory("Calculatrice", function, $"f({x}) = {result:F4}");
+            };
+
+            dialog.Children.Add(calcBtn);
+            _contentArea.Content = dialog;
+        }
+
+        // ===== MODULE: JUSTE PRIX =====
+        private Control CreateJustePrixModule()
+        {
+            var root = new StackPanel { Spacing = 20, Orientation = Orientation.Vertical };
+
+            var title = new TextBlock
+            {
+                Text = "🎮 Juste Prix",
+                FontSize = 28,
+                FontWeight = FontWeight.Bold,
+                Foreground = new SolidColorBrush(Color.Parse("#1e293b"))
+            };
+            root.Children.Add(title);
+
+            var instructions = new TextBlock
+            {
+                Text = "Devinez un nombre entre 0 et 50. Vous avez 5 tentatives.",
+                FontSize = 14,
+                Foreground = new SolidColorBrush(Color.Parse("#64748b")),
+                Margin = new Thickness(0, 0, 0, 20),
+                TextWrapping = TextWrapping.Wrap
+            };
+            root.Children.Add(instructions);
+
+            var random = new Random();
+            int secret = random.Next(0, 51);
+            int attempts = 5;
+            bool won = false;
+
+            var gameUI = new StackPanel { Spacing = 12, Orientation = Orientation.Vertical };
+
+            var input = new TextBox
+            {
+                PlaceholderText = "Entrez votre nombre...",
+                FontSize = 14,
+                Padding = new Thickness(12),
+                Height = 40
+            };
+            gameUI.Children.Add(input);
+
+            var attemptText = new TextBlock
+            {
+                Text = $"Tentatives restantes: {attempts}/5",
+                FontSize = 13,
+                Foreground = new SolidColorBrush(Color.Parse("#64748b"))
+            };
+            gameUI.Children.Add(attemptText);
+
+            var resultText = new TextBlock
+            {
+                Text = "Devinez!",
+                FontSize = 14,
+                Foreground = new SolidColorBrush(Color.Parse("#64748b")),
+                Margin = new Thickness(0, 10, 0, 0)
+            };
+            gameUI.Children.Add(resultText);
+
+            var guessBtn = new Button
+            {
+                Content = "Deviner",
+                Background = new SolidColorBrush(Color.Parse("#10b981")),
+                Foreground = new SolidColorBrush(Colors.White),
+                Padding = new Thickness(16, 10, 16, 10),
+                BorderThickness = new Thickness(0),
+                FontSize = 14,
+                CornerRadius = new CornerRadius(4),
+                Cursor = new Cursor(StandardCursorType.Hand)
+            };
+
+            guessBtn.Click += (s, e) =>
+            {
+                if (int.TryParse(input.Text, out int guess) && attempts > 0)
+                {
+                    int diff = Math.Abs(secret - guess);
+
+                    if (diff <= 1)
+                    {
+                        won = true;
+                        resultText.Foreground = new SolidColorBrush(Color.Parse("#10b981"));
+                        resultText.Text = $"✓ Gagné! Le nombre était {secret}";
+                        guessBtn.IsEnabled = false;
+                        AddHistory("Juste Prix", "Victoire", $"Nombre trouvé en {6 - attempts} tentatives");
+                    }
+                    else
+                    {
+                        attempts--;
+                        string hint = secret > guess ? "↑ Plus grand" : "↓ Plus petit";
+                        string heat = diff < 5 ? "🔥 Chaud!" : diff < 10 ? "🟡 Tiède" : "❄️ Froid";
+                        resultText.Text = $"{hint} {heat}";
+                        resultText.Foreground = new SolidColorBrush(Color.Parse("#f59e0b"));
+                        attemptText.Text = $"Tentatives restantes: {attempts}/5";
+
+                        if (attempts == 0)
+                        {
+                            resultText.Foreground = new SolidColorBrush(Color.Parse("#ef4444"));
+                            resultText.Text = $"✗ Perdu! Le nombre était {secret}";
+                            guessBtn.IsEnabled = false;
+                            input.IsEnabled = false;
+                            AddHistory("Juste Prix", "Défaite", $"Nombre secret: {secret}");
+                        }
+                    }
+                    input.Clear();
+                }
+            };
+
+            gameUI.Children.Add(guessBtn);
+            root.Children.Add(gameUI);
+
+            return root;
+        }
+
+        // ===== MODULE: CONVERTISSEUR =====
+        private Control CreateConverterModule()
+        {
+            var root = new StackPanel { Spacing = 20, Orientation = Orientation.Vertical };
+
+            var title = new TextBlock
+            {
+                Text = "🌡️ Convertisseur de Température",
+                FontSize = 28,
+                FontWeight = FontWeight.Bold,
+                Foreground = new SolidColorBrush(Color.Parse("#1e293b"))
+            };
+            root.Children.Add(title);
+
+            var grid = new Grid
+            {
+                ColumnDefinitions = new ColumnDefinitions("*,*"),
+                RowDefinitions = new RowDefinitions("Auto"),
+                ColumnSpacing = 20
+            };
+
+            // C -> F
+            var cfSection = new StackPanel { Spacing = 12, Orientation = Orientation.Vertical };
+            var cfTitle = new TextBlock { Text = "Celsius → Fahrenheit", FontSize = 14, FontWeight = FontWeight.Bold, Foreground = new SolidColorBrush(Color.Parse("#2563eb")) };
+            cfSection.Children.Add(cfTitle);
+
+            var cfInput = CreateNumericInput("°C: ", 0);
+            cfSection.Children.Add(cfInput);
+
+            var cfBtn = new Button { Content = "Convertir", Background = new SolidColorBrush(Color.Parse("#2563eb")), Foreground = new SolidColorBrush(Colors.White), Padding = new Thickness(12, 8, 12, 8), BorderThickness = new Thickness(0), CornerRadius = new CornerRadius(4) };
+            cfBtn.Click += (s, e) =>
+            {
+                double c = GetInputValue(cfInput);
+                double f = c * 9 / 5 + 32;
+                AddHistory("Convertisseur", "C→F", $"{c}°C = {f:F2}°F");
+            };
+            cfSection.Children.Add(cfBtn);
+
+            var cfBorder = new Border { Child = cfSection, Background = new SolidColorBrush(Colors.White), BorderBrush = new SolidColorBrush(Color.Parse("#e2e8f0")), BorderThickness = new Thickness(1), CornerRadius = new CornerRadius(8), Padding = new Thickness(16) };
+            Grid.SetColumn(cfBorder, 0);
+            grid.Children.Add(cfBorder);
+
+            // F -> C
+            var fcSection = new StackPanel { Spacing = 12, Orientation = Orientation.Vertical };
+            var fcTitle = new TextBlock { Text = "Fahrenheit → Celsius", FontSize = 14, FontWeight = FontWeight.Bold, Foreground = new SolidColorBrush(Color.Parse("#8b5cf6")) };
+            fcSection.Children.Add(fcTitle);
+
+            var fcInput = CreateNumericInput("°F: ", 0);
+            fcSection.Children.Add(fcInput);
+
+            var fcBtn = new Button { Content = "Convertir", Background = new SolidColorBrush(Color.Parse("#8b5cf6")), Foreground = new SolidColorBrush(Colors.White), Padding = new Thickness(12, 8, 12, 8), BorderThickness = new Thickness(0), CornerRadius = new CornerRadius(4) };
+            fcBtn.Click += (s, e) =>
+            {
+                double f = GetInputValue(fcInput);
+                double c = (f - 32) * 5 / 9;
+                AddHistory("Convertisseur", "F→C", $"{f}°F = {c:F2}°C");
+            };
+            fcSection.Children.Add(fcBtn);
+
+            var fcBorder = new Border { Child = fcSection, Background = new SolidColorBrush(Colors.White), BorderBrush = new SolidColorBrush(Color.Parse("#e2e8f0")), BorderThickness = new Thickness(1), CornerRadius = new CornerRadius(8), Padding = new Thickness(16) };
+            Grid.SetColumn(fcBorder, 1);
+            grid.Children.Add(fcBorder);
+
+            root.Children.Add(grid);
+
+            return root;
+        }
+
+        // ===== HELPERS =====
+
+        private StackPanel CreateNumericInput(string label, double initialValue = 0)
+        {
+            var panel = new StackPanel { Spacing = 4, Orientation = Orientation.Vertical };
+
+            var labelText = new TextBlock
+            {
+                Text = label,
+                FontSize = 12,
+                FontWeight = FontWeight.Medium,
+                Foreground = new SolidColorBrush(Color.Parse("#475569"))
+            };
+            panel.Children.Add(labelText);
+
+            var input = new TextBox
+            {
+                Text = initialValue.ToString(CultureInfo.InvariantCulture),
+                FontSize = 13,
+                Padding = new Thickness(10),
+                Height = 36,
+                Name = label
+            };
+            panel.Children.Add(input);
+
+            panel.Tag = input;
+            return panel;
+        }
+
+        private double GetInputValue(StackPanel panel)
+        {
+            var input = panel.Children[1] as TextBox;
+            return double.TryParse(input?.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out double val) ? val : 0;
+        }
+
+        private Border CreateResultBox(string text)
+        {
+            var resultText = new TextBlock
+            {
+                Text = text,
+                FontSize = 16,
+                FontWeight = FontWeight.Bold,
+                Foreground = new SolidColorBrush(Color.Parse("#2563eb")),
+                TextWrapping = TextWrapping.Wrap
+            };
+
+            var border = new Border
+            {
+                Child = resultText,
+                Background = new SolidColorBrush(Color.Parse("#eff6ff")),
+                BorderBrush = new SolidColorBrush(Color.Parse("#2563eb")),
+                BorderThickness = new Thickness(1),
+                CornerRadius = new CornerRadius(8),
+                Padding = new Thickness(20, 16, 20, 16),
+                Margin = new Thickness(0, 20, 0, 0)
+            };
+
+            return border;
+        }
+
+        private void AddHistory(string module, string operation, string result)
+        {
+            _history.Insert(0, new CalculationHistory
+            {
+                Timestamp = DateTime.Now.ToString("HH:mm:ss"),
+                Module = module,
+                Operation = operation,
+                Result = result
+            });
+        }
+
+        private string GetSymbol(string operation) => operation switch
+        {
+            "Addition" => "+",
+            "Soustraction" => "-",
+            "Multiplication" => "×",
+            "Division" => "÷",
+            "Reste" => "%",
+            _ => " "
+        };
+    }
+
+    // ========================================================================
+    // APPLICATION ENTRY POINT
+    // ========================================================================
+    public class App : Application
+    {
+        public override void Initialize()
+        {
+            //AvaloniaXamlLoader.Load(this);
+        }
+
+        public override void OnFrameworkInitializationCompleted()
+        {
+            if (Design.IsDesignMode) return;
+
+            if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktopLifetime)
+            {
+                desktopLifetime.MainWindow = new MainWindow();
+            }
+
+            base.OnFrameworkInitializationCompleted();
+        }
+    }
+
+    public static class Program
+    {
+        public static void Main(string[] args)
+        {
+            BuildAvaloniaApp().StartWithClassicDesktopLifetime(args);
+        }
+
+        public static AppBuilder BuildAvaloniaApp()
+        {
+            return AppBuilder
+                .Configure<App>()
+                .UsePlatformDetect()
+                .LogToTrace();
+        }
+    }
+}
