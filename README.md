@@ -91,6 +91,7 @@ An **integrated application** that combines the two previous projects with a **c
 **Concepts demonstrated** — Multi-level polymorphism, state management with flags, nested flow control, code reusability
 
 - [ ] Main file: [`Test_Appli.cs`](https://github.com/epicvixen73-arch/Projects/blob/main/CSharp/Appli/TestAppli.cs)
+- [ ] Refactored file: [`Test_Appli (refactored for app).cs`](https://github.com/epicvixen73-arch/Projects/blob/main/CSharp/Appli/Test_App%20(refactored%20for%20app).cs)
 
 ## Technologies Used
 
