@@ -6,6 +6,7 @@ using System.Runtime.Remoting.Messaging;
 using System.Text;
 using System.Threading.Tasks;
 using Math = System.Math;
+using System.Numerics;
 namespace Test_App
 {
     internal class Program
@@ -214,7 +215,8 @@ $$ |  $$ |$$ |$$$$$$$  |  \$$$$  |\$$$$$$  |$$ |      $$ |\$$$$$$$ |\$$$$$$  |\$
                                                                 $$ |                    
                                                                 \__|                    
 ";
-            while (true)
+            bool quitApp = false;
+            while (!quitApp)
             {
                 Console.Clear();
                 PrintBanner(asciiApp, ConsoleColor.Red);
@@ -229,14 +231,19 @@ $$ |  $$ |$$ |$$$$$$$  |  \$$$$  |\$$$$$$  |$$ |      $$ |\$$$$$$$ |\$$$$$$  |\$
                         JeuPrix(asciiJeu, message);
                         break;
                     case 3:
-                        Meteo(asciiMeteo, message);
+                        Meteo(asciiMeteo);
                         break;
                     case 4:
-                        ExitApp(asciiHist, asciiExit);
-                        break; 
+                        PrintBanner(asciiHist, ConsoleColor.Yellow);
+                        ShowHist();
+                        Console.Clear();
+                        PrintBanner(asciiExit, ConsoleColor.DarkGray);
+                        quitApp = true;
+                        break;
                 }
             }
         }
+        static readonly List<string> historique = new List<string>();
         static bool Saisir(string message, out int userChoice, int borne = int.MaxValue)
         {
             Console.Write("\n" + message);
@@ -299,7 +306,6 @@ $$ |  $$ |$$ |$$$$$$$  |  \$$$$  |\$$$$$$  |$$ |      $$ |\$$$$$$$ |\$$$$$$  |\$
             Console.WriteLine(message);
             Console.ReadKey(true);
         }
-        static readonly List<string> historique = new List<string>();
         static void ShowHist()
         {
             if (historique.Count == 0)
@@ -309,7 +315,10 @@ $$ |  $$ |$$ |$$$$$$$  |  \$$$$  |\$$$$$$  |$$ |      $$ |\$$$$$$$ |\$$$$$$  |\$
             else
             {
                 for (int i = 0; i < historique.Count; i++)
+                {
                     Console.WriteLine($"{i + 1}. {historique[i]}");
+                    Console.WriteLine();
+                }
             }
             PauseDuUser("\nAppuyez sur une touche pour fermer...");
         }
@@ -375,7 +384,7 @@ $$ |  $$ |$$ |$$$$$$$  |  \$$$$  |\$$$$$$  |$$ |      $$ |\$$$$$$$ |\$$$$$$  |\$
                         if (!Saisir("n: ", out int n))
                             continue;
                         Console.WriteLine();
-                        float resultatPow = (float)Math.Pow(a, n);
+                        BigInteger resultatPow = BigInteger.Pow(a, n);
                         Console.WriteLine($"Result de {a}^{n}: {resultatPow}");
                         historique.Add($"Puissance : {a}^{n} = {resultatPow}");
                         break;
@@ -450,19 +459,19 @@ $$ |  $$ |$$ |$$$$$$$  |  \$$$$  |\$$$$$$  |$$ |      $$ |\$$$$$$$ |\$$$$$$  |\$
             if (hasWon)
             {
                 Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine("Fin du jeu, merci d'y avoir joué ! Vous avez gagné ! La valeur était : " + valueToGuess);
+                Console.WriteLine($"Fin du jeu, merci d'y avoir joué ! Vous avez gagné ! La valeur était: {valueToGuess}");
                 Console.ResetColor();
             }
             else
             {
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Fin du jeu, merci d'y avoir joué ! Vous avez perdu. La valeur était : " + valueToGuess);
+                Console.WriteLine($"Fin du jeu, merci d'y avoir joué ! Vous avez perdu. La valeur était : {valueToGuess}");
                 Console.ResetColor();
             }
             historique.Add(hasWon ? $"Juste Prix : gagné en {5 - nbGuess} essai(s) (valeur = {valueToGuess})" : $"Juste Prix : perdu (valeur = {valueToGuess})");
             PauseDuUser("\nAppuyez sur une touche pour revenir au menu principal...");
         }
-        static void Meteo(string asciiMeteo, string message)
+        static void Meteo(string asciiMeteo)
         {
             // Convertisseur °C <-> °F
             PrintBanner(asciiMeteo, ConsoleColor.Green);
@@ -487,19 +496,6 @@ $$ |  $$ |$$ |$$$$$$$  |  \$$$$  |\$$$$$$  |$$ |      $$ |\$$$$$$$ |\$$$$$$  |\$
                 historique.Add($"Conversion : {tempVal}°F = {resultC}°C");
             }
             PauseDuUser("\nAppuyez sur une touche pour revenir au menu principal...");
-        }
-        static void ExitApp(string asciiHist, string asciiExit)
-        {
-
-            //Quit
-
-            //Rajouter le print de l'historique entier après ce commentaire mais au dessus du clear.
-            Console.Clear();
-            PrintBanner(asciiHist, ConsoleColor.Yellow);
-            ShowHist();
-            Console.Clear();
-            PrintBanner(asciiExit, ConsoleColor.DarkGray);
-            return;
         }
     }
 }
