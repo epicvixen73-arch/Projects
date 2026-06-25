@@ -686,7 +686,10 @@ namespace TestAppUI
                 FontSize = 13,
                 Padding = new Thickness(10),
                 Height = 36,
-                Name = label
+                Name = label,
+                IsEnabled = true,
+                IsHitTestVisible = true,
+                Focusable = true
             };
             panel.Children.Add(input);
 
