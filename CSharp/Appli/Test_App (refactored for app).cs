@@ -7,10 +7,15 @@ using System.Text;
 using System.Threading.Tasks;
 using Math = System.Math;
 using System.Numerics;
+using System.IO;
 namespace Test_App
 {
     internal class Program
     {
+        public static bool quitApp = false;
+        public static bool firstWrite = true;
+        const float kmToMl = 0.62137119f;
+        const float mlToKM = 1.609344f;
         abstract class Operation
         {
             public abstract float Calcul(float a, float b);
@@ -215,12 +220,23 @@ $$ |  $$ |$$ |$$$$$$$  |  \$$$$  |\$$$$$$  |$$ |      $$ |\$$$$$$$ |\$$$$$$  |\$
                                                                 $$ |                    
                                                                 \__|                    
 ";
-            bool quitApp = false;
+            string asciiVit = @"
+$$\    $$\ $$\   $$\                                             
+$$ |   $$ |\__|  $$ |                                            
+$$ |   $$ |$$\ $$$$$$\    $$$$$$\   $$$$$$$\  $$$$$$$\  $$$$$$\  
+\$$\  $$  |$$ |\_$$  _|  $$  __$$\ $$  _____|$$  _____|$$  __$$\ 
+ \$$\$$  / $$ |  $$ |    $$$$$$$$ |\$$$$$$\  \$$$$$$\  $$$$$$$$ |
+  \$$$  /  $$ |  $$ |$$\ $$   ____| \____$$\  \____$$\ $$   ____|
+   \$  /   $$ |  \$$$$  |\$$$$$$$\ $$$$$$$  |$$$$$$$  |\$$$$$$$\ 
+    \_/    \__|   \____/  \_______|\_______/ \_______/  \_______|
+                                                                 
+";
+
             while (!quitApp)
             {
                 Console.Clear();
                 PrintBanner(asciiApp, ConsoleColor.Red);
-                if (!Saisir("===  Test_App  === \n1: Calculatrice \n2: Juste Prix \n3: Convertisseur °C/°F\n4: Quitter \nChoix: ", out int ActionChoice, 4))
+                if (!Saisir("===  Test_App  === \n1: Calculatrice \n2: Juste Prix \n3: Convertisseur °C/°F\n4: Convertisseur km/h _ mph \n5: Quitter\nChoix: ", out int ActionChoice, 5))
                     continue;
                 switch (ActionChoice)
                 {
@@ -234,6 +250,11 @@ $$ |  $$ |$$ |$$$$$$$  |  \$$$$  |\$$$$$$  |$$ |      $$ |\$$$$$$$ |\$$$$$$  |\$
                         Meteo(asciiMeteo);
                         break;
                     case 4:
+                        Console.Clear();
+                        VitesseConv(asciiVit);
+                        break;
+                    case 5:
+                        Console.Clear();
                         PrintBanner(asciiHist, ConsoleColor.Yellow);
                         ShowHist();
                         Console.Clear();
@@ -322,6 +343,27 @@ $$ |  $$ |$$ |$$$$$$$  |  \$$$$  |\$$$$$$  |$$ |      $$ |\$$$$$$$ |\$$$$$$  |\$
             }
             PauseDuUser("\nAppuyez sur une touche pour fermer...");
         }
+        static void WriteHistory(string History)
+        {
+            historique.Add(History);
+            try
+            {
+                string filepath = @"C:\Users\Stage\Desktop\HistoriqueApp.log";
+                StreamWriter sw = new StreamWriter(filepath, true);
+                if (firstWrite)
+                {
+                    firstWrite = false;
+                    sw.WriteLine("\n------- " + System.DateTime.Now.ToString() + " -------\n");
+                }
+
+                sw.WriteLine(History);
+                sw.Close();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Exception: " + e.Message);
+            }
+        }
         static void Calculatrice(string asciiCalc, string message)
         {
 
@@ -375,7 +417,7 @@ $$ |  $$ |$$ |$$$$$$$  |  \$$$$  |\$$$$$$  |$$ |      $$ |\$$$$$$$ |\$$$$$$  |\$
                         Console.WriteLine();
                         float resultatOp = operations[choix_operateur - 1].Calcul(a_ope, b);
                         Console.WriteLine("Result: " + resultatOp);
-                        historique.Add($"Calculatrice [{operations[choix_operateur - 1].GetName()}] : {a_ope} , {b} = {resultatOp}");
+                        WriteHistory($"Calculatrice [{operations[choix_operateur - 1].GetName()}] : {a_ope} , {b} = {resultatOp}");
                         break;
                     case 2:
                         Console.WriteLine("-------Puissances------");
@@ -386,7 +428,7 @@ $$ |  $$ |$$ |$$$$$$$  |  \$$$$  |\$$$$$$  |$$ |      $$ |\$$$$$$$ |\$$$$$$  |\$
                         Console.WriteLine();
                         BigInteger resultatPow = BigInteger.Pow(a, n);
                         Console.WriteLine($"Result de {a}^{n}: {resultatPow}");
-                        historique.Add($"Puissance : {a}^{n} = {resultatPow}");
+                        WriteHistory($"Puissance : {a}^{n} = {resultatPow}");
                         break;
                     case 3:
                         message = "-------Fonctions-------";
@@ -404,7 +446,7 @@ $$ |  $$ |$$ |$$$$$$$  |  \$$$$  |\$$$$$$  |$$ |      $$ |\$$$$$$$ |\$$$$$$  |\$
                         Console.WriteLine();
                         float resultatFn = fonctions[choix_fonctions - 1].Fonction(x);
                         Console.WriteLine("Result: " + resultatFn);
-                        historique.Add($"Fonction [{fonctions[choix_fonctions - 1].GetName()}] de {x} = {resultatFn}");
+                        WriteHistory($"Fonction [{fonctions[choix_fonctions - 1].GetName()}] de {x} = {resultatFn}");
                         break;
                     case 4:
                         Console.WriteLine("Au revoir !");
@@ -468,32 +510,58 @@ $$ |  $$ |$$ |$$$$$$$  |  \$$$$  |\$$$$$$  |$$ |      $$ |\$$$$$$$ |\$$$$$$  |\$
                 Console.WriteLine($"Fin du jeu, merci d'y avoir joué ! Vous avez perdu. La valeur était : {valueToGuess}");
                 Console.ResetColor();
             }
-            historique.Add(hasWon ? $"Juste Prix : gagné en {5 - nbGuess} essai(s) (valeur = {valueToGuess})" : $"Juste Prix : perdu (valeur = {valueToGuess})");
+            WriteHistory(hasWon ? $"Juste Prix : gagné en {5 - nbGuess} essai(s) (valeur = {valueToGuess})" : $"Juste Prix : perdu (valeur = {valueToGuess})");
             PauseDuUser("\nAppuyez sur une touche pour revenir au menu principal...");
         }
         static void Meteo(string asciiMeteo)
         {
             // Convertisseur °C <-> °F
             PrintBanner(asciiMeteo, ConsoleColor.Green);
-            Console.WriteLine("1: °C -> °F");
-            Console.WriteLine("2: °F -> °C");
+            Console.WriteLine("1: °C -> °F \n2: °F -> °C");
             if (!Saisir("Choix: ", out int convChoice, 2))
                 return;
 
             if (!SaisirAnyFloat("Température: ", out float tempVal))
                 return;
-
+            string result;
             if (convChoice == 1)
             {
                 float resultF = tempVal * 9f / 5f + 32f;
-                Console.WriteLine($"{tempVal} °C = {resultF} °F");
-                historique.Add($"Conversion : {tempVal}°C = {resultF}°F");
+                result = $"{tempVal} °C = {resultF} °F";
+                Console.WriteLine(result);
+                WriteHistory(result);
             }
             else
             {
                 float resultC = (tempVal - 32f) * 5f / 9f;
-                Console.WriteLine($"{tempVal} °F = {resultC} °C");
-                historique.Add($"Conversion : {tempVal}°F = {resultC}°C");
+                result = $"{tempVal} °F = {resultC} °C";
+                Console.WriteLine(result);
+                WriteHistory(result);
+            }
+            PauseDuUser("\nAppuyez sur une touche pour revenir au menu principal...");
+        }
+        static void VitesseConv(string asciiVit)
+        {
+            PrintBanner(asciiVit, ConsoleColor.DarkYellow);
+            Console.WriteLine("1: km/h -> mph \n2: mph -> km/h");
+            if (!Saisir("Choix: ", out int convChoice, 2))
+                return;
+            if (!Saisir("Vitesse: ", out float valVit))
+                return;
+            string result;
+            if ( convChoice == 1)
+            {
+                float resultMPH = valVit * kmToMl;
+                result = $"{valVit} km/h = {resultMPH} mph";
+                Console.WriteLine(result);
+                WriteHistory(result);
+            }
+            else
+            {
+                float resultKMH = valVit * mlToKM;
+                result = $"{valVit} mph = {resultKMH} km/h";
+                Console.WriteLine(result);
+                WriteHistory(result);
             }
             PauseDuUser("\nAppuyez sur une touche pour revenir au menu principal...");
         }
