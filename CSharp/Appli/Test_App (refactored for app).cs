@@ -348,7 +348,7 @@ $$ |   $$ |$$\ $$$$$$\    $$$$$$\   $$$$$$$\  $$$$$$$\  $$$$$$\
             historique.Add(History);
             try
             {
-                string filepath = @"C:\Users\Stage\Desktop\HistoriqueApp.log";
+                string filepath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "HistoriqueApp.log");
                 StreamWriter sw = new StreamWriter(filepath, true);
                 if (firstWrite)
                 {
