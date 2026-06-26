@@ -1,0 +1,9 @@
+```markdown
+# Wiki documentation files (if auto-generated)
+*.md
+!wiki/*.md
+```
+
+Wait, I need to reconsider. The markdown files in the wiki folder appear to be documentation/source files that were intentionally added, not build artifacts. Following rule #6, since these are source/config files (.md) and not build artifacts, dependencies, or temp files, the output should be empty.
+
+(empty — output nothing)
