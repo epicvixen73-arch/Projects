@@ -690,6 +690,8 @@ namespace TestAppUI
                 IsEnabled = true,
                 IsHitTestVisible = true,
                 Focusable = true
+                IsReadOnly = true,
+                HorizontalAlignment = HorizontalAlignment.Stretch,
             };
             panel.Children.Add(input);
 
